@@ -154,7 +154,6 @@ static void test_sstring ( char const * const st1 ,
  * Launch \link\c test_sstring_test() \enlink on various cases including empty C-string.
  */
 int main ( void ) {
-
   test_sstring ( "roudoudou" , "unfzer_5\tdf" ) ;
   test_sstring ( "roudoudou" , "" ) ;
   test_sstring ( "" , "unfzer_5\tdf" ) ;

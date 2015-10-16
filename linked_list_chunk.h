@@ -32,6 +32,9 @@
  */
 
 
+typedef struct inner_linked_chunk_struct inner_linked_chunk ;
+
+
 /*! 
  * \c linked_list_chunk is a pointer to a hidden structure (\c main structure). 
 */

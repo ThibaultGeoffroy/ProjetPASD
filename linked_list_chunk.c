@@ -38,14 +38,28 @@
 /*! 
  * \c linked_list_chunk is a pointer to a hidden structure (\c main structure). 
 */
+typedef struct  inner_linked_chunk_struct{
+  inner_linked_chunk* precedent ;
+  inner_linked_chunk* suivant;
+  chunk value;
+} inner_linked_chunk_struct;
 
+typedef struct linked_list_chunk_struct{
+	inner_linked_chunk* first;
+	inner_linked_chunk* last;
+}linked_list_chunk_struct;
 
 /*!
  * Generate an empty \c linked_list_chunk
  *
  * \return an empty \c linked_list_chunk
  */
-linked_list_chunk linked_list_chunk_create ( void )  { return NULL ; }
+linked_list_chunk linked_list_chunk_create ( void )  { 
+	linked_list_chunk l = malloc(sizeof(linked_list_chunk));
+	l->first = NULL;
+	l->last = NULL;
+	return l ; 
+}
 
 /*!
  * Destroy the whole structure and the stored values.
@@ -53,7 +67,23 @@ linked_list_chunk linked_list_chunk_create ( void )  { return NULL ; }
  * \param llc \c linked_list_chunk to destroy
  * \pre \c llc is valid (assert-ed)
  */
-void linked_list_chunk_destroy ( linked_list_chunk llc )  {}
+void linked_list_chunk_destroy ( linked_list_chunk llc )  {
+	inner_linked_chunk* buffILC;
+	while(llc->first != NULL){
+		buffILC = llc->first;
+		llc->first = llc->first->suivant;
+		buffILC->precedent = NULL;
+		chunk_answer_message(buffILC->value, "destroy");
+		buffILC->value = NULL;
+		buffILC->suivant = NULL;
+		free(buffILC);
+		buffILC = NULL;
+	}
+	free(llc);
+	llc->first = NULL;
+	llc->last = NULL;
+
+}
 
 
 /*!
@@ -63,7 +93,12 @@ void linked_list_chunk_destroy ( linked_list_chunk llc )  {}
  * \pre \c llc is valid (assert-ed)
  * \return true iff \c llc is empty
  */
-bool linked_list_chunk_is_empty ( linked_list_chunk llc)  { return NULL ; }
+bool linked_list_chunk_is_empty ( linked_list_chunk llc)  { 
+	printf("test\n");
+	assert(llc != NULL);
+	printf("test\n");
+	return(llc->first == NULL);
+}
 
 
 /*!
@@ -76,7 +111,15 @@ bool linked_list_chunk_is_empty ( linked_list_chunk llc)  { return NULL ; }
  * \pre \c f is not \c NULL (assert-ed)
  */
 void linked_list_chunk_print ( linked_list_chunk llc ,
-				      FILE * f )  {}
+				      FILE * f )  {
+	assert(llc != NULL);
+	assert(!linked_list_chunk_is_empty);
+	inner_linked_chunk* ilc = llc->first;
+	while(ilc != NULL){
+		chunk_answer_message(ilc->value , "print", f);
+		ilc = ilc->suivant;
+	}
+}
 
 /*!
  * Add a chunk at the beginning of the \c linked_list_chunk.
@@ -87,7 +130,21 @@ void linked_list_chunk_print ( linked_list_chunk llc ,
  * \pre \c ch is not \c NULL (assert-ed)
  */
 void linked_list_chunk_add_front ( linked_list_chunk llc ,
-					  chunk ch )  {}
+					  chunk ch )  {
+	assert(llc != NULL);
+	assert(ch != NULL);
+	inner_linked_chunk* ilc = malloc(sizeof(inner_linked_chunk));
+	ilc->precedent = NULL;
+	ilc->suivant = llc->first;
+	ilc->value = ch;
+	if(llc->first !=  NULL){
+		llc->first->precedent = ilc;
+	}
+	else{
+		llc->last = ilc;
+	}
+	llc->first = ilc;
+}
 
 /*!
  * Add a \c chunk at the end of the \c linked_list_chunk.
@@ -98,7 +155,22 @@ void linked_list_chunk_add_front ( linked_list_chunk llc ,
  * \pre \c ch is not \c NULL (assert-ed)
  */
 void linked_list_chunk_add_back ( linked_list_chunk llc ,
-					 chunk ch )  {}
+					 chunk ch )  {
+	assert(llc != NULL);
+	assert(ch != NULL);
+	inner_linked_chunk* ilc = malloc(sizeof(inner_linked_chunk));
+	ilc->suivant = NULL;
+	ilc->precedent = llc->last;
+	ilc->value = ch;
+	llc->last = ilc;
+	if(llc->first !=  NULL){
+		llc->last->suivant = ilc;
+	}
+	else{
+		llc->first = ilc;
+	}
+
+}
 
 /*!
  * Return the \c chunk at the beginning of the \c linked_list_chunk.
@@ -107,7 +179,20 @@ void linked_list_chunk_add_back ( linked_list_chunk llc ,
  * \param llc \c linked_list_chunk to pop from
  * \return The removed \c chunk at the beginning or \c NULL if linked_list_chunk empty
  */
-chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  { return NULL ; }
+chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  { 
+	assert(llc != NULL);
+	chunk ch = NULL;
+	if(llc->first !=  NULL){
+		chunk ch = llc->first->value;
+		if(llc->first == llc->last){
+			llc->last = NULL;
+			llc->first = NULL;
+		}
+		llc->first = llc->first->suivant;
+		llc->first->precedent =  NULL;
+	}
+	return ch; 
+}
 
 
 /*!
