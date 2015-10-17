@@ -81,6 +81,8 @@ void dictionary_set ( dictionary dic ,
 	else{
 		int compare = sstring_compare(dic->key, key);
 		if(compare == 0){
+			chunk_destroy(dic->val);
+			dic->val = chunk_copy(val);
 			return;
 		}
 		if(compare < 0){

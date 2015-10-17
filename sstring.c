@@ -42,7 +42,8 @@ typedef struct sstring_struct{
  * \author Thibault Geoffroy
  */
 sstring sstring_create_empty ( void )  { 
-	sstring s = malloc(sizeof(sstring));
+	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
+	//sstring s = malloc(sizeof(sstring));
 	s->size = 0;
 	s->value = NULL;
 	return s; 
@@ -58,10 +59,12 @@ sstring sstring_create_empty ( void )  {
  * \author Thibault Geoffroy
  */
 sstring sstring_create_string ( char const * const st )  {
-	sstring s = malloc(sizeof(sstring));
-	s->size = strlen(st);
-	s->value = malloc(s->size*sizeof(char)+1);
-	s->value = strcpy(s->value, st);
+	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
+	s->size = (unsigned int)strlen(st);
+	s->value = (char*)malloc(s->size*sizeof(char));
+	for(int i = 0; i<s->size ;  i++){
+		(s->value)[i] = st[i];
+	}
 	return s; 
 }
 
@@ -74,11 +77,13 @@ sstring sstring_create_string ( char const * const st )  {
  * \author Thibault Geoffroy
  */
 void sstring_destroy ( sstring ss )  {
-	free(ss->value);
-	ss->value = NULL;
-	ss->size = 0;
-	free(ss);
-	ss = NULL;
+	if (ss != NULL){
+		free(ss->value);
+		ss->value = NULL;
+		ss->size = 0;
+		free(ss);
+		ss = NULL;
+	}
 }
 
 
@@ -110,31 +115,15 @@ void sstring_print ( sstring ss ,
  */
 void sstring_concatenate ( sstring ss1,
 				  sstring ss2 )  {
-	/*int tailleTotale =  ss1->size +ss2->size;
-	//free(ss1->value);
-	printf("%d\n",tailleTotale );
-	if ((ss1->value != NULL) && ss2->value){
-		char* s = malloc(tailleTotale*sizeof(char)+1);
-		for(int i = ss1->size; i<tailleTotale ; i++){
-			s[i] = (ss2->value)[i];
-		}
-		ss1->value = s;
-	}
-	else if (ss2->value && !(ss1->value)){
-		char* s =malloc(tailleTotale*sizeof(char)+1);
-		for(int i = 0; i<tailleTotale ; i++){
-			s[i] = (ss2->value)[i];
-		}
-		ss1->value = s;
-	}
-	ss1->size = tailleTotale;*/
 
 	unsigned int tailleTotale = ss1->size + ss2->size;
 	char* s = malloc(sizeof(char)*tailleTotale);
 	if (ss1->value == NULL && ss2->value == NULL){
+		free(s);
 		return;
 	}
 	else if(ss1->value != NULL && ss2->value == NULL){
+		free(s);
 		return;
 	}
 	else if(ss1->value == NULL && ss2->value != NULL){
@@ -152,6 +141,7 @@ void sstring_concatenate ( sstring ss1,
 			j++;
 		}
 	}
+	free(ss1->value);
 	ss1->value = s;
 	ss1->size = tailleTotale;
 	return;
