@@ -31,13 +31,22 @@
 
 /*! \c sstring is a pointer to a hidden structure. */
 
-
+typedef struct sstring_struct{
+  unsigned int size;
+  char * value ;
+}sstring_struct;
 /*!
  * Generate an empty \c sstring.
  *
  * \return an empty \c sstring
+ * \author Thibault Geoffroy
  */
-sstring sstring_create_empty ( void )  { return NULL ; }
+sstring sstring_create_empty ( void )  { 
+	sstring s = malloc(sizeof(sstring));
+	s->size = 0;
+	s->value = NULL;
+	return s; 
+}
 
 
 /*!
@@ -46,8 +55,15 @@ sstring sstring_create_empty ( void )  { return NULL ; }
  * \param st C-string
  * \pre st is not \c NULL (assert-ed)
  * \return a sstring corresponding to st
+ * \author Thibault Geoffroy
  */
-sstring sstring_create_string ( char const * const st )  { return NULL ; }
+sstring sstring_create_string ( char const * const st )  {
+	sstring s = malloc(sizeof(sstring));
+	s->size = strlen(st);
+	s->value = malloc(s->size*sizeof(char)+1);
+	s->value = strcpy(s->value, st);
+	return s; 
+}
 
 
 /*!
@@ -55,8 +71,15 @@ sstring sstring_create_string ( char const * const st )  { return NULL ; }
  *
  * \param ss C-string to destroy
  * \pre ss is a valid \c sstring (assert-ed)
+ * \author Thibault Geoffroy
  */
-void sstring_destroy ( sstring ss )  {}
+void sstring_destroy ( sstring ss )  {
+	free(ss->value);
+	ss->value = NULL;
+	ss->size = 0;
+	free(ss);
+	ss = NULL;
+}
 
 
 /*!
@@ -67,9 +90,15 @@ void sstring_destroy ( sstring ss )  {}
  * \param f stream to print to
  * \pre ss is a valid \c sstring (assert-ed)
  * \pre f is not \c NULL (assert-ed)
+ * \author Thibault Geoffroy
  */
 void sstring_print ( sstring ss ,
-			    FILE * f )  {}
+			    FILE * f )  {
+	assert(ss != NULL);
+	for (unsigned int i = 0; i < ss->size ; i++){
+		fprintf(f, "%c", (ss->value)[i] );
+	}
+}
 
 /*!
  * Concatenate a \c sstring at the end of another.
@@ -77,9 +106,56 @@ void sstring_print ( sstring ss ,
  * \param ss1 \c sstring to be modified
  * \param ss2 \c sstring to concatenate to \c ss1
  * \pre \c ss1 and \c ss2 are valid \c sstring (assert-ed)
+ * \author Thibault Geoffroy
  */
 void sstring_concatenate ( sstring ss1,
-				  sstring ss2 )  {}
+				  sstring ss2 )  {
+	/*int tailleTotale =  ss1->size +ss2->size;
+	//free(ss1->value);
+	printf("%d\n",tailleTotale );
+	if ((ss1->value != NULL) && ss2->value){
+		char* s = malloc(tailleTotale*sizeof(char)+1);
+		for(int i = ss1->size; i<tailleTotale ; i++){
+			s[i] = (ss2->value)[i];
+		}
+		ss1->value = s;
+	}
+	else if (ss2->value && !(ss1->value)){
+		char* s =malloc(tailleTotale*sizeof(char)+1);
+		for(int i = 0; i<tailleTotale ; i++){
+			s[i] = (ss2->value)[i];
+		}
+		ss1->value = s;
+	}
+	ss1->size = tailleTotale;*/
+
+	unsigned int tailleTotale = ss1->size + ss2->size;
+	char* s = malloc(sizeof(char)*tailleTotale);
+	if (ss1->value == NULL && ss2->value == NULL){
+		return;
+	}
+	else if(ss1->value != NULL && ss2->value == NULL){
+		return;
+	}
+	else if(ss1->value == NULL && ss2->value != NULL){
+		for (unsigned int i = 0  ; i<tailleTotale ; i++){
+			s[i] = (ss2->value)[i];
+		}
+	}
+	else if(ss1->value != NULL && ss2->value != NULL){
+		int j = 0;
+		for (unsigned int i = 0 ; i<ss1->size ; i++ ){
+			s[i] = (ss1->value)[i];
+		}
+		for (unsigned int i = ss1->size ;i<tailleTotale; i++  ){
+			s[i] = (ss2->value)[j];
+			j++;
+		}
+	}
+	ss1->value = s;
+	ss1->size = tailleTotale;
+	return;
+}
 
 /*!
  * Provide a copy of a string.
@@ -88,7 +164,10 @@ void sstring_concatenate ( sstring ss1,
  * \pre ss is a valid \c sstring (assert-ed)
  * \return an independant copy of \c ss
  */
-sstring sstring_copy ( sstring ss )  { return NULL ; }
+sstring sstring_copy ( sstring ss )  { 
+	sstring s = sstring_create_string(ss->value);
+	return s ; 
+}
 
 
 /*!
@@ -103,7 +182,16 @@ sstring sstring_copy ( sstring ss )  { return NULL ; }
  * \li 1 otherwise
  */
 int sstring_compare ( sstring ss1 ,
-			     sstring ss2 )  { return 0 ; }
+			     sstring ss2 )  {
+	int i = strcmp(ss1->value , ss2->value);
+	if( i < 0){
+		i = -1;
+	}
+	if(i > 0){
+		i = 1;
+	}
+	return i; 
+}
 
 
 /*!
@@ -115,6 +203,8 @@ int sstring_compare ( sstring ss1 ,
  * \pre ss is a valid \c sstring (assert-ed)
  * \return true ssi \c ss is empty
  */
-bool sstring_is_empty ( sstring ss )  { return NULL ; }
+bool sstring_is_empty ( sstring ss )  { 
+	return (ss->size == 0); 
+}
 
 
