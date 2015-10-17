@@ -44,6 +44,14 @@ typedef struct  inner_linked_chunk_struct{
   chunk value;
 } inner_linked_chunk_struct;
 
+inner_linked_chunk* inner_linked_chunk_copy( inner_linked_chunk* ilc){
+	inner_linked_chunk* ilc2 = (inner_linked_chunk*)malloc(sizeof(struct inner_linked_chunk_struct));
+	ilc2->precedent = ilc->precedent;
+	ilc2->suivant = ilc->suivant;
+	ilc2->value = chunk_copy(ilc->value);
+	return ilc2;
+}
+
 typedef struct linked_list_chunk_struct{
 	inner_linked_chunk* first;
 	inner_linked_chunk* last;
@@ -55,7 +63,7 @@ typedef struct linked_list_chunk_struct{
  * \return an empty \c linked_list_chunk
  */
 linked_list_chunk linked_list_chunk_create ( void )  { 
-	linked_list_chunk l = malloc(sizeof(linked_list_chunk));
+	linked_list_chunk l = (linked_list_chunk)malloc(sizeof(struct linked_list_chunk_struct));
 	l->first = NULL;
 	l->last = NULL;
 	return l ; 
@@ -94,9 +102,6 @@ void linked_list_chunk_destroy ( linked_list_chunk llc )  {
  * \return true iff \c llc is empty
  */
 bool linked_list_chunk_is_empty ( linked_list_chunk llc)  { 
-	printf("test\n");
-	assert(llc != NULL);
-	printf("test\n");
 	return(llc->first == NULL);
 }
 
@@ -113,10 +118,11 @@ bool linked_list_chunk_is_empty ( linked_list_chunk llc)  {
 void linked_list_chunk_print ( linked_list_chunk llc ,
 				      FILE * f )  {
 	assert(llc != NULL);
-	assert(!linked_list_chunk_is_empty);
+
 	inner_linked_chunk* ilc = llc->first;
 	while(ilc != NULL){
 		chunk_answer_message(ilc->value , "print", f);
+		fprintf(f,"\n");
 		ilc = ilc->suivant;
 	}
 }
@@ -162,14 +168,14 @@ void linked_list_chunk_add_back ( linked_list_chunk llc ,
 	ilc->suivant = NULL;
 	ilc->precedent = llc->last;
 	ilc->value = ch;
-	llc->last = ilc;
+	
 	if(llc->first !=  NULL){
 		llc->last->suivant = ilc;
 	}
 	else{
 		llc->first = ilc;
 	}
-
+	llc->last = ilc;
 }
 
 /*!
@@ -181,13 +187,15 @@ void linked_list_chunk_add_back ( linked_list_chunk llc ,
  */
 chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  { 
 	assert(llc != NULL);
-	chunk ch = NULL;
-	if(llc->first !=  NULL){
-		chunk ch = llc->first->value;
-		if(llc->first == llc->last){
-			llc->last = NULL;
-			llc->first = NULL;
-		}
+	if(linked_list_chunk_is_empty(llc)){
+		return NULL;
+	}
+	chunk ch = chunk_copy(llc->first->value);
+	if(llc->first == llc->last){
+		llc->last = NULL;
+		llc->first = NULL;
+	}
+	else{
 		llc->first = llc->first->suivant;
 		llc->first->precedent =  NULL;
 	}
@@ -210,7 +218,20 @@ chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  {
  * \return false if there where less than k element. In such a case, no copy is made.
  */
 bool linked_list_chunk_add_self_copy_front ( linked_list_chunk llc ,
-						    unsigned int k )  { return NULL ; }
+						    unsigned int k )  { 
+	inner_linked_chunk* buff = llc->first;
+	for(unsigned int i = 0; i<k-1 ; i++){
+		if(buff == NULL){
+			return false;
+		}
+		buff = buff->suivant;
+	}
+	for(unsigned int i = 0; i<k; i++){
+		linked_list_chunk_add_front(llc , chunk_copy(buff->value));
+		buff = buff->precedent;
+	}
+	return true;
+ }
 
 
 /*!
@@ -218,6 +239,14 @@ bool linked_list_chunk_add_self_copy_front ( linked_list_chunk llc ,
  *
  * \param llc \c linked_list_chunk to copy
  * \pre \c llc is valid (assert-ed)
- */linked_list_chunk linked_list_chunk_copy ( linked_list_chunk llc )  { return NULL ; }
+ */linked_list_chunk linked_list_chunk_copy ( linked_list_chunk llc )  {
+ 	linked_list_chunk llc2 = linked_list_chunk_create();
+ 	inner_linked_chunk* buff = llc->first;
+ 	while(buff != NULL){
+	 	linked_list_chunk_add_back(llc2 , chunk_copy(buff->value));
+	 	buff = buff->suivant;
+ 	}
+ 	return llc2; 
+  }
 
 

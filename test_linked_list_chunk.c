@@ -54,7 +54,7 @@ static void test_llc_ch ( linked_list_chunk const llc ,
 int main ( void ) {
   chunk ch ;
   linked_list_chunk llc = linked_list_chunk_create () ;
-  assert (true /*linked_list_chunk_is_empty ( llc )*/ ) ;
+  assert (linked_list_chunk_is_empty ( llc ) ) ;
   
   test_llc_ch ( llc , value_error_create ( 0 ) ) ;
   test_llc_ch ( llc , value_error_create ( 1 ) ) ;
