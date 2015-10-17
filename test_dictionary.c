@@ -34,6 +34,7 @@
 static void test_dico_key_val ( dictionary const dic ,
 				char const * const key_st ,
 				chunk const val ) {
+  assert(val != NULL);
   sstring key = sstring_create_string ( key_st ) ;
   dictionary_set ( dic , key , val ) ;
   fprintf ( stdout , "Accessing with key: [%s] \"" , key_st ) ;

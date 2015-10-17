@@ -44,13 +44,6 @@ typedef struct  inner_linked_chunk_struct{
   chunk value;
 } inner_linked_chunk_struct;
 
-inner_linked_chunk* inner_linked_chunk_copy( inner_linked_chunk* ilc){
-	inner_linked_chunk* ilc2 = (inner_linked_chunk*)malloc(sizeof(struct inner_linked_chunk_struct));
-	ilc2->precedent = ilc->precedent;
-	ilc2->suivant = ilc->suivant;
-	ilc2->value = chunk_copy(ilc->value);
-	return ilc2;
-}
 
 typedef struct linked_list_chunk_struct{
 	inner_linked_chunk* first;

@@ -34,14 +34,28 @@
 
 
 /*! \c dictionary is a pointer to the hidden structure for dictionary. */
-
+struct dictionary_struct {
+	sstring key;
+	void* val;
+	dictionary pere;
+	dictionary filsgauche;
+	dictionary filsdroit;
+};
 
 /*!
  * Generate an empty \c dictionary.
  *
  * \return an empty \c dictionary
  */
-dictionary dictionary_create ( void )  { return NULL ; }
+dictionary dictionary_create ( void )  { 
+	dictionary dic = (dictionary)malloc(sizeof(struct dictionary_struct));
+	dic->key = NULL;
+	dic->val = NULL;
+	dic->pere = NULL;
+	dic->filsgauche = NULL;
+	dic->filsdroit = NULL;
+	return dic;
+}
 
 
 /*!
@@ -58,7 +72,34 @@ dictionary dictionary_create ( void )  { return NULL ; }
  */
 void dictionary_set ( dictionary dic ,
 			     sstring key ,
-			     chunk val )  {}
+			     chunk val )  {
+	if(dic->key == NULL){
+		dic->key = sstring_copy(key);
+		dic->val = chunk_copy(val);
+		return;
+	}
+	else{
+		int compare = sstring_compare(dic->key, key);
+		if(compare == 0){
+			return;
+		}
+		if(compare < 0){
+			if(dic->filsgauche == NULL){
+				dic->filsgauche = dictionary_create();
+				dic->filsgauche->pere = dic;
+			}
+			dictionary_set(dic->filsgauche , key , val);
+		}
+		else if(compare > 0){
+			if(dic->filsdroit == NULL){
+				dic->filsdroit = dictionary_create();
+				dic->filsdroit->pere = dic;
+			}
+			dictionary_set(dic->filsdroit , key , val);
+		}
+	}
+
+}
 
 
 /*!
@@ -71,7 +112,28 @@ void dictionary_set ( dictionary dic ,
  * \return a \b copy of the associated \c chunk or NULL if undefined 
  */
 chunk dictionary_get_copy ( dictionary dic ,
-				   sstring key )  { return NULL ; }
+				   sstring key )  { 
+	int compare = sstring_compare(dic->key, key);
+	if (compare == 0){
+		return chunk_copy(dic->val);
+	}
+	if (compare < 0){
+		if(dic->filsgauche == NULL){
+			return NULL;
+		}
+		else{
+			return dictionary_get_copy(dic->filsgauche, key);
+		}
+	}
+	if (compare > 0){
+		if(dic->filsdroit ==  NULL){
+			return NULL;
+		}
+		else{
+			return dictionary_get_copy(dic->filsdroit, key);
+		}
+	}
+}
 
 
 /*!
@@ -81,7 +143,16 @@ chunk dictionary_get_copy ( dictionary dic ,
  * \param dic \c dictionary to destroy
  * \pre no pointer is NULL (assert-ed)
  */
-void dictionary_destroy ( dictionary dic )  {}
+void dictionary_destroy ( dictionary dic )  {
+	if(dic != NULL){
+		dictionary_destroy(dic->filsgauche);
+		dictionary_destroy(dic->filsdroit);
+		sstring_destroy(dic->key);
+		chunk_destroy(dic->val);
+		free(dic);
+		dic = NULL;
+	}
+}
 
 
 /*!
@@ -102,7 +173,17 @@ void dictionary_destroy ( dictionary dic )  {}
  * \pre no pointer is NULL (assert-ed)
  */
 void dictionary_print ( dictionary dic ,
-			       FILE * f )  {}
+			       FILE * f )  {
+	if(dic != NULL){
+		dictionary_print(dic->filsgauche, f);
+		fprintf(f , "\"");
+		sstring_print(dic->key, f);
+		fprintf(f, "\" => " );
+		chunk_print(dic->val, f);
+		fprintf(f, "\n" );
+		dictionary_print(dic->filsdroit, f);
+	}
+}
 
 
 
