@@ -190,7 +190,7 @@ chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  {
 	if(linked_list_chunk_is_empty(llc)){
 		return NULL;
 	}
-	chunk ch = chunk_copy(llc->first->value);
+	chunk ch = llc->first->value;
 	if(llc->first == llc->last){
 		llc->last = NULL;
 		llc->first = NULL;
