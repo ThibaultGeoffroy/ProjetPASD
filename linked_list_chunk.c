@@ -74,7 +74,7 @@ void linked_list_chunk_destroy ( linked_list_chunk llc )  {
 		buffILC = llc->first;
 		llc->first = llc->first->suivant;
 		buffILC->precedent = NULL;
-		chunk_answer_message(buffILC->value, "destroy");
+		chunk_destroy(buffILC->value);
 		buffILC->value = NULL;
 		buffILC->suivant = NULL;
 		free(buffILC);
@@ -83,6 +83,7 @@ void linked_list_chunk_destroy ( linked_list_chunk llc )  {
 	free(llc);
 	llc->first = NULL;
 	llc->last = NULL;
+	llc = NULL;
 
 }
 
@@ -157,7 +158,7 @@ void linked_list_chunk_add_back ( linked_list_chunk llc ,
 					 chunk ch )  {
 	assert(llc != NULL);
 	assert(ch != NULL);
-	inner_linked_chunk* ilc = malloc(sizeof(inner_linked_chunk));
+	inner_linked_chunk* ilc = (inner_linked_chunk*)malloc(sizeof(struct inner_linked_chunk_struct));
 	ilc->suivant = NULL;
 	ilc->precedent = llc->last;
 	ilc->value = ch;

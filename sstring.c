@@ -43,7 +43,6 @@ typedef struct sstring_struct{
  */
 sstring sstring_create_empty ( void )  { 
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
-	//sstring s = malloc(sizeof(sstring));
 	s->size = 0;
 	s->value = NULL;
 	return s; 
@@ -60,7 +59,7 @@ sstring sstring_create_empty ( void )  {
  */
 sstring sstring_create_string ( char const * const st )  {
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
-	s->size = (unsigned int)strlen(st);
+	s->size = (unsigned int)sizeof(st)-1;
 	s->value = (char*)malloc(s->size*sizeof(char));
 	for(int i = 0; i<s->size ;  i++){
 		(s->value)[i] = st[i];
