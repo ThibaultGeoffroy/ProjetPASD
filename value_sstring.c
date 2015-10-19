@@ -30,8 +30,8 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
+const message_action value_sstring_reactions [] = {
+  { NULL, NULL }
+};
 
 VALUE_DECLARE ( sstring , sstring ) 
-
-

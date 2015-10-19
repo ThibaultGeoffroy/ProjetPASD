@@ -11,7 +11,6 @@
 
 
 
-
 /*!
  * \file 
  * \brief \c value to hold a constant label protected/inactivated.
@@ -30,7 +29,9 @@
  * \copyright GNU Public License.
  */
 
+const message_action value_protected_label_reactions [] = {
+  { NULL, NULL }
+};
 
 VALUE_DECLARE( protected_label , sstring ) 
-
 

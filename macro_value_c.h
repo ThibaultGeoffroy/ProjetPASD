@@ -12,15 +12,11 @@
 # define VALUE_DECLARE( type_name , type_C )				\
   chunk value_ ## type_name ## _create ( type_C const val ) {		\
     chunk res = ( chunk ) malloc(sizeof(struct chunk_struct));		\
-    res->reactions = NULL;						\
-    /* if(#type_C == "linked_list_chunk"){				\
-      void * pt = &val;							\
-      basic_type rep = basic_type_pointer(pt);				\
-      }else{ */								\
+    res->reactions = value_ ## type_name ## _reactions;					\
     basic_type rep = basic_type_ ## type_name (val);			\
-    void * value = &rep;						\
-    res->state = value;							\
-    return res;								\
+      void * value = &rep;						\
+      res->state = value;						\
+      return res;							\
   }									\
   bool value_is_ ## type_name ( chunk const ch ) {			\
     return true ;							\

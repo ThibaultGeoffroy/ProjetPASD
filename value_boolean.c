@@ -11,7 +11,6 @@
 
 
 
-
 /*!
  * \file 
  * \brief \c value used to hold a boolean.
@@ -39,6 +38,10 @@
  * Defined for I/O.
  */
 # define VALUE_BOOLEAN_STRING_FALSE "false"
+
+const message_action value_boolean_reactions [] = {
+  {NULL, NULL}
+};
 
 
 VALUE_DECLARE ( boolean , bool )

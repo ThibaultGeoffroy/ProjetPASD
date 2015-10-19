@@ -9,7 +9,9 @@
 
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
-
+ static const message_action value_block_reactions [] = {
+  { NULL, NULL }
+};
 
 
 

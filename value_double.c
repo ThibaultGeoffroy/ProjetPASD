@@ -13,7 +13,6 @@
 
 
 
-
 /*!
  * \file 
  * \brief \c value used to hold a \c double.
@@ -29,7 +28,9 @@
  * \copyright GNU Public License.
  */
 
+const message_action value_double_reactions [] = {
+  { NULL, NULL }
+};
 
 VALUE_DECLARE( double , long double ) 
-
 

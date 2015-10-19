@@ -26,14 +26,18 @@
  */
 
 // FAIRE DECLARATION DANS .H
-VALUE_DECLARE( int, long long int )
+
+const message_action value_int_reactions [] = {
+  MESSAGE_ACTION__BASIC_VALUE(int)
+};
 
 
-void chunk_int_print(chunk toprint, FILE *f){ // Que doit on print ? state / methode associer au message ... ?
+void value_int_print(chunk toprint, FILE *f){ // Que doit on print ? state / methode associer au message ... ?
   
+  return ; 
 }
 
-void chunk_int_destroy(chunk *todestroy){ // fonction a tester, voir destruction necessaire pour message action et state, verif interférence avec copy)
+void value_int_destroy(chunk *todestroy){ // fonction a tester, voir destruction necessaire pour message action et state, verif interférence avec copy)
   /* param const comment le free , besoins de le free ?
   free((*todestroy)->reactions);
   */
@@ -47,19 +51,11 @@ void chunk_int_destroy(chunk *todestroy){ // fonction a tester, voir destruction
   return ;
 }
 
-chunk chunk_int_copy(chunk origin){
+chunk value_int_copy(chunk origin){
   chunk res = malloc(sizeof(struct chunk_struct));
   res->reactions = origin->reactions;
   res->state = origin->state;
   return res;
-}
-
-bool chunk_is_int(chunk ToTest){ 
-  if(chunk_is_value(ToTest)){ // Test acces a la méthode
-    return value_is_int(ToTest);
-  }else{
-    return false;
-  }
 }
 
 basic_type value_int_get_value(chunk ToGet){
@@ -71,7 +67,4 @@ basic_type value_int_get_value(chunk ToGet){
   }
 }
 
-message_action* getmessage_int(){
- message_action tabaction [] = {MESSAGE_ACTION__BASIC_PARAM(chunk_, int)};
-  return tabaction;
-}
+VALUE_DECLARE( int, long long int )
