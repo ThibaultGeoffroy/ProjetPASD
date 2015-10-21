@@ -59,7 +59,7 @@ CC := gcc
 
 ## Compilation options
 
-C_FLAG_OFF_UNUSED := -Wno-unused-but-set-parameter -Wno-unused-variable -Wno-unused-parameter -Wno-abi
+C_FLAG_OFF_UNUSED := -Wno-unused-parameter -Wno-unused-variable -Wno-unused-parameter -Wno-abi
 # de-activate noisy warnings
 
 CFLAGS := -std=c99 -Wall -Wextra -pedantic -ggdb -lm $(C_FLAG_OFF_UNUSED)

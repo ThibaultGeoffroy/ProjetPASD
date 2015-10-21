@@ -33,19 +33,24 @@ const message_action value_int_reactions [] = {
 
 typedef struct {
   basic_type basic_type;
-} value_block_int_struct ,
-  * value_int_state ;
+} value_int_state;
 
 
 static char const * const value_int_string = "--int-- #" ;
 
 basic_type value_int_print(chunk const toprint, va_list va){
+    if (t_long_long_int !=  ((basic_type*) (toprint->state))->type ) {
+    printf("n'est pas un int dans le print");
+  }
   long long int value = basic_type_get_long_long_int( *(basic_type*) (toprint->state) );
   FILE * f = va_arg ( va , FILE * ) ;
   fprintf ( f
 	    , "%s %lld"
 	    , value_int_string
 	    , value );
+  if (t_long_long_int !=  ((basic_type*) (toprint->state))->type ) {
+    printf("n'est pas un int dans le print");
+  }
   return basic_type_void; 
 }
 
@@ -60,6 +65,7 @@ basic_type value_int_destroy(chunk const todestroy, va_list va){
 }
 
 basic_type value_int_copy(chunk const origin, va_list va){
+  //assert(t_long_long_int ==  ((basic_type*) (origin->state))->type);
   return basic_type_pointer(origin);
 }
 

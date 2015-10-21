@@ -28,12 +28,16 @@ basic_type chunk_answer_message ( chunk const ch ,
     rep ++ ;
   }
   va_end ( va ) ;
+  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
+    printf("dans le ANSWER");
+  }
   return bt ;
 }
 
 
 chunk chunk_copy ( chunk ch ) {
   assert ( NULL != ch ) ;
+  assert (NULL != ch->state);
   basic_type bt = chunk_answer_message ( ch , MESSAGE_COPY ) ;
   return basic_type_get_pointer ( bt ) ;
 }
@@ -46,9 +50,17 @@ basic_type chunk_destroy ( chunk ch ) {
 }
 
 
-basic_type chunk_print ( chunk ch,
+basic_type chunk_print ( chunk const ch,
 			 FILE * f ) {
   assert ( NULL != ch ) ;
   assert ( NULL != f ) ;
-  return chunk_answer_message ( ch , MESSAGE_PRINT , f ) ;
+
+  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
+    printf("avant le answer_message");
+  }
+  basic_type bt  = chunk_answer_message ( ch , MESSAGE_PRINT , f ) ;
+  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
+    printf("après le answer_message");
+  }
+  return bt;
 }
