@@ -43,6 +43,10 @@ const message_action value_boolean_reactions [] = {
   {NULL, NULL}
 };
 
+typedef struct {
+  basic_type basic_type;
+} value_block_boolean_struct ,
+  * value_boolean_state ;
 
 VALUE_DECLARE ( boolean , bool )
 

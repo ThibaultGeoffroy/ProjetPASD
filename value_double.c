@@ -32,5 +32,11 @@ const message_action value_double_reactions [] = {
   { NULL, NULL }
 };
 
+typedef struct {
+  basic_type basic_type;
+} value_block_double_struct ,
+  * value_double_state ;
+
+
 VALUE_DECLARE( double , long double ) 
 

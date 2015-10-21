@@ -14,7 +14,10 @@
 };
 
 
-
+typedef struct {
+  basic_type basic_type;
+} value_block_state_struct ,
+  * value_block_state ;
 
 /*!
  * \file 

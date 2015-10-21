@@ -33,5 +33,11 @@ const message_action value_protected_label_reactions [] = {
   { NULL, NULL }
 };
 
+typedef struct {
+  basic_type basic_type;
+} value_block_protected_label_struct ,
+  * value_protected_label_state ;
+
+
 VALUE_DECLARE( protected_label , sstring ) 
 

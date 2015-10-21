@@ -31,34 +31,39 @@ const message_action value_int_reactions [] = {
   MESSAGE_ACTION__BASIC_VALUE(int)
 };
 
+typedef struct {
+  basic_type basic_type;
+} value_block_int_struct ,
+  * value_int_state ;
 
-void value_int_print(chunk toprint, FILE *f){ // Que doit on print ? state / methode associer au message ... ?
-  
-  return ; 
+
+static char const * const value_int_string = "--int-- #" ;
+
+basic_type value_int_print(chunk const toprint, va_list va){
+  long long int value = basic_type_get_long_long_int( *(basic_type*) (toprint->state) );
+  FILE * f = va_arg ( va , FILE * ) ;
+  fprintf ( f
+	    , "%s %lld"
+	    , value_int_string
+	    , value );
+  return basic_type_void; 
 }
 
-void value_int_destroy(chunk *todestroy){ // fonction a tester, voir destruction necessaire pour message action et state, verif interférence avec copy)
-  /* param const comment le free , besoins de le free ?
-  free((*todestroy)->reactions);
-  */
-(*todestroy)->reactions = NULL;
-  free((*todestroy)->state);
-  (*todestroy)->state = NULL;
-  free((*todestroy));
-  *todestroy = NULL;
+basic_type value_int_destroy(chunk const todestroy, va_list va){ 
+  void * pt = &( *(basic_type*) todestroy->state);
+  free(pt);
+  free((todestroy->state));
+  todestroy->state = NULL;
+  todestroy->reactions = NULL;
   free(todestroy);
-  todestroy = NULL;
-  return ;
+  return basic_type_void;
 }
 
-chunk value_int_copy(chunk origin){
-  chunk res = malloc(sizeof(struct chunk_struct));
-  res->reactions = origin->reactions;
-  res->state = origin->state;
-  return res;
+basic_type value_int_copy(chunk const origin, va_list va){
+  return basic_type_pointer(origin);
 }
 
-basic_type value_int_get_value(chunk ToGet){
+basic_type value_int_get_value(chunk const ToGet, va_list va){
   if(ToGet->state != NULL){
     return *(basic_type*)ToGet->state;
   }else{

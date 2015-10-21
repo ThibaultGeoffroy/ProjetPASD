@@ -27,13 +27,13 @@
 
 VALUE_DECLARE( int , long long int ) 
 
-basic_type value_int_get_value(chunk ToGet);
+basic_type value_int_get_value(chunk const ToGet, va_list va);
 
-chunk value_int_copy(chunk origin);
+basic_type value_int_copy(chunk const origin, va_list va);
 
-void value_int_destroy(chunk *todestroy);
+basic_type value_int_destroy(chunk const todestroy, va_list va);
 
-void value_int_print(chunk toprint, FILE *f);
+basic_type value_int_print(chunk const toprint, va_list va);
 
 
 
