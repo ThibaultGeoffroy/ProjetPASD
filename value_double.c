@@ -47,9 +47,7 @@ basic_type value_double_print(chunk const toprint, va_list va){
 }
 
 basic_type value_double_destroy(chunk const todestroy, va_list va){ 
-  void * pt = &( *(basic_type*) todestroy->state);
-  free(pt);
-  free((todestroy->state));
+  free((basic_type*)(todestroy->state));
   todestroy->state = NULL;
   todestroy->reactions = NULL;
   free(todestroy);

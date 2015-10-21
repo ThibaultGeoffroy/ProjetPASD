@@ -31,13 +31,39 @@
  * \copyright GNU Public License.
  */
 const message_action value_sstring_reactions [] = {
+	MESSAGE_ACTION__BASIC_VALUE(sstring),
   { NULL, NULL }
 };
 
 typedef struct {
   basic_type basic_type;
-} value_block_sstring_struct ,
-  * value_sstring_state ;
+} value_sstring_state;
 
+basic_type value_sstring_print(chunk const toprint, va_list va){
+  FILE * f = va_arg ( va , FILE * ) ;
+  sstring_print(basic_type_get_pointer( *(basic_type*) (toprint->state) ),f);
+  return basic_type_void; 
+}
 
+basic_type value_sstring_destroy(chunk const todestroy, va_list va){ 
+  sstring_destroy((sstring)basic_type_get_pointer(*(basic_type*)(todestroy->state)));
+  todestroy->state = NULL;
+  todestroy->reactions = NULL;
+  free(todestroy);
+  return basic_type_void;
+}
+
+basic_type value_sstring_copy(chunk const origin, va_list va){
+  chunk ch = value_sstring_create(sstring_copy(basic_type_get_pointer(*(basic_type*)(origin->state))));
+  return basic_type_pointer(ch);
+}
+
+basic_type value_sstring_get_value(chunk const ToGet, va_list va){
+  if(ToGet->state != NULL){
+    return *(basic_type*)ToGet->state;
+  }else{
+    basic_type res = basic_type_error; // a tester
+    return res;
+  }
+}
 VALUE_DECLARE ( sstring , sstring ) 
