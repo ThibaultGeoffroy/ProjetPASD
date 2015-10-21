@@ -36,6 +36,13 @@
  */
 # define VALUE_BOOLEAN_STRING_FALSE "false"
 
+basic_type value_boolean_print(chunk const toprint, va_list va);
+
+basic_type value_boolean_destroy(chunk const todestroy, va_list va);
+
+basic_type value_boolean_copy(chunk const origin, va_list va);
+
+basic_type value_boolean_get_value(chunk const ToGet, va_list va);
 
 VALUE_DECLARE ( boolean , bool )
 
