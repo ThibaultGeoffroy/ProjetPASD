@@ -28,9 +28,6 @@ basic_type chunk_answer_message ( chunk const ch ,
     rep ++ ;
   }
   va_end ( va ) ;
-  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
-    printf("dans le ANSWER");
-  }
   return bt ;
 }
 
@@ -54,13 +51,6 @@ basic_type chunk_print ( chunk const ch,
 			 FILE * f ) {
   assert ( NULL != ch ) ;
   assert ( NULL != f ) ;
-
-  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
-    printf("avant le answer_message");
-  }
   basic_type bt  = chunk_answer_message ( ch , MESSAGE_PRINT , f ) ;
-  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
-    printf("après le answer_message");
-  }
   return bt;
 }

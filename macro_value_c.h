@@ -17,8 +17,7 @@
     ;			\
 	   *(basic_type*)(res->state) = basic_type_ ## type_name (val);						             \
 	return res;							\
-  }
-  *( ## type_C ## )									\
+  }								\
   bool value_is_ ## type_name ( chunk const ch ) {			\
     return true ;							\
   }

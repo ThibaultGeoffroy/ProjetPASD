@@ -32,26 +32,20 @@
  * \param ch chunk to test
  * \param st C-string to print
  */
-static void test_chunk ( chunk const ch ,
+static void test_chunk ( chunk ch ,
 			 char const * const st ) {
   assert ( NULL != ch ) ;
   assert ( NULL != st ) ;
 
   printf ( "== %s ==\n" , st ) ;
-  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
-    printf("n'est pas un int avant le print");
-  }
  
   basic_type bt = chunk_print ( ch , stdout ) ;
-
-  if (t_long_long_int !=  ((basic_type*) (ch->state))->type ) {
-    printf("n'est pas un int après le PRINT");
-  }
   assert ( t_void == bt.type ) ;
   fputc ( '\n' , stdout ) ;
   
-  /*chunk ch2 = chunk_copy ( ch ) ;
+  chunk ch2 = chunk_copy ( ch ) ;
   assert ( NULL != ch2 ) ;
+  ch = NULL;
   //chunk_destroy ( ch ) ;
   chunk_print ( ch2 , stdout ) ;
   fputc ( '\n' , stdout ) ;
@@ -63,9 +57,9 @@ static void test_chunk ( chunk const ch ,
  * Launch \link test_chunk()\endlink on various \c value_int and \c value_error.
  */
 int main ( void ) {
-  //test_chunk ( value_error_create ( VALUE_ERROR_IO_SYNTAX ) , "error # 0" ) ;
-  test_chunk ( value_int_create ( 4 ) ,"int 4" ) ;
-  test_chunk ( value_int_create ( 54 ) ,"int 54" ) ;
+  test_chunk ( value_error_create ( VALUE_ERROR_IO_SYNTAX ) , "error # 0" ) ;
+  test_chunk ( value_double_create ( 4.0 ) ,"int 4" ) ;
+  test_chunk ( value_double_create ( 54.0 ) ,"int 54" ) ;
 
   return 0 ;
 }
