@@ -22,7 +22,9 @@
  */
 
 
-VALUE_DECLARE( double , long double ) 
+VALUE_DECLARE( double , long double )
+
+
 basic_type value_double_get_value(chunk const ToGet, va_list va);
 
 basic_type value_double_copy(chunk const origin, va_list va);

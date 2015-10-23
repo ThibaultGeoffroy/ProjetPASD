@@ -25,7 +25,10 @@
  * \copyright GNU Public License.
  */
 
-
+basic_type value_protected_label_print(chunk const toprint, va_list va);
+basic_type value_protected_label_destroy(chunk const todestroy, va_list va);
+basic_type value_protected_label_copy(chunk const origin, va_list va);
+basic_type value_protected_label_get_value(chunk const ToGet, va_list va);
 VALUE_DECLARE( protected_label , sstring ) 
 
 

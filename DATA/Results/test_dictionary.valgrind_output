@@ -1,0 +1,288 @@
+==83570== Memcheck, a memory error detector
+==83570== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==83570== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==83570== Command: ./test_dictionary
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x1000176C8: strlen (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C2A: sstring_create_string (sstring.c:62)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570==  Address 0x100a7e504 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570==  Address 0x100a7e5a4 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570==  Address 0x100a7e504 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x1000060D5: dictionary_get_copy (dictionary.c:127)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x100006318: main (test_dictionary.c:62)
+==83570==  Address 0x100a7e964 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x100006318: main (test_dictionary.c:62)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x1000060D5: dictionary_get_copy (dictionary.c:127)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x100006318: main (test_dictionary.c:62)
+==83570==  Address 0x100a7e854 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x100006318: main (test_dictionary.c:62)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x10000611B: dictionary_get_copy (dictionary.c:135)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x10000638A: main (test_dictionary.c:64)
+==83570==  Address 0x100a906c3 is 0 bytes after a block of size 3 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000603B: dictionary_set (dictionary.c:100)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x10000638A: main (test_dictionary.c:64)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x10000606F: dictionary_get_copy (dictionary.c:118)
+==83570==    by 0x10000611B: dictionary_get_copy (dictionary.c:135)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x10000638A: main (test_dictionary.c:64)
+==83570==  Address 0x100a905b3 is 0 bytes after a block of size 3 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x10000638A: main (test_dictionary.c:64)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x1000176BF: strlen (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C2A: sstring_create_string (sstring.c:62)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000603B: dictionary_set (dictionary.c:100)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000063B4: main (test_dictionary.c:65)
+==83570==  Address 0x100a90975 is 0 bytes after a block of size 5 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x1000063B4: main (test_dictionary.c:65)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x1000176BF: strlen (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C2A: sstring_create_string (sstring.c:62)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100003C41: value_protected_label_copy (value_protected_label.c:57)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x1000019EF: chunk_copy (chunk.c:38)
+==83570==    by 0x100005F3D: dictionary_set (dictionary.c:78)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000063E3: main (test_dictionary.c:66)
+==83570==  Address 0x100a90c89 is 0 bytes after a block of size 9 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000063C8: main (test_dictionary.c:66)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x100005F5A: dictionary_set (dictionary.c:82)
+==83570==    by 0x10000603B: dictionary_set (dictionary.c:100)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x10000641B: main (test_dictionary.c:72)
+==83570==  Address 0x100a906c3 is 0 bytes after a block of size 3 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000603B: dictionary_set (dictionary.c:100)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x10000638A: main (test_dictionary.c:64)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x100005F5A: dictionary_set (dictionary.c:82)
+==83570==    by 0x10000603B: dictionary_set (dictionary.c:100)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x10000641B: main (test_dictionary.c:72)
+==83570==  Address 0x100a912d3 is 0 bytes after a block of size 3 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x10000641B: main (test_dictionary.c:72)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x100005F5A: dictionary_set (dictionary.c:82)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x100006465: main (test_dictionary.c:74)
+==83570==  Address 0x100a7e5a4 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x100001FC8: sstring_copy (sstring.c:157)
+==83570==    by 0x100005F2D: dictionary_set (dictionary.c:77)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570== 
+==83570== Invalid read of size 1
+==83570==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100002014: sstring_compare (sstring.c:176)
+==83570==    by 0x100005F5A: dictionary_set (dictionary.c:82)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x100006465: main (test_dictionary.c:74)
+==83570==  Address 0x100a91834 is 0 bytes after a block of size 4 alloc'd
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100001C46: sstring_create_string (sstring.c:63)
+==83570==    by 0x1000064F5: test_dico_key_val (test_dictionary.c:38)
+==83570==    by 0x100006465: main (test_dictionary.c:74)
+==83570== 
+==83570== 
+==83570== HEAP SUMMARY:
+==83570==     in use at exit: 87,992 bytes in 194 blocks
+==83570==   total heap usage: 365 allocs, 171 frees, 95,875 bytes allocated
+==83570== 
+==83570== 32 bytes in 1 blocks are indirectly lost in loss record 19 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x1001D054B: __Balloc_D2A (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001CD11F: __rv_alloc_D2A (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001CE8A1: __gdtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x100217966: __ldtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F5D7D: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x10021F35C: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1000030F8: value_double_print (value_double.c:43)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x100001B83: chunk_print (chunk.c:54)
+==83570== 
+==83570== 32 bytes in 1 blocks are definitely lost in loss record 20 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100003D50: value_protected_label_create (value_protected_label.c:69)
+==83570==    by 0x1000063D0: main (test_dictionary.c:66)
+==83570== 
+==83570== 32 bytes in 1 blocks are definitely lost in loss record 21 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100003D50: value_protected_label_create (value_protected_label.c:69)
+==83570==    by 0x100003C49: value_protected_label_copy (value_protected_label.c:57)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x1000019EF: chunk_copy (chunk.c:38)
+==83570==    by 0x100005F3D: dictionary_set (dictionary.c:78)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x100005FE5: dictionary_set (dictionary.c:93)
+==83570==    by 0x10000650A: test_dico_key_val (test_dictionary.c:39)
+==83570==    by 0x1000063E3: main (test_dictionary.c:66)
+==83570== 
+==83570== 32 bytes in 1 blocks are definitely lost in loss record 22 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x100003D50: value_protected_label_create (value_protected_label.c:69)
+==83570==    by 0x100003C49: value_protected_label_copy (value_protected_label.c:57)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x1000019EF: chunk_copy (chunk.c:38)
+==83570==    by 0x10000608F: dictionary_get_copy (dictionary.c:120)
+==83570==    by 0x1000060D5: dictionary_get_copy (dictionary.c:127)
+==83570==    by 0x1000060D5: dictionary_get_copy (dictionary.c:127)
+==83570==    by 0x1000060D5: dictionary_get_copy (dictionary.c:127)
+==83570==    by 0x10000654C: test_dico_key_val (test_dictionary.c:42)
+==83570==    by 0x1000063E3: main (test_dictionary.c:66)
+==83570== 
+==83570== 36 bytes in 1 blocks are indirectly lost in loss record 23 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x1001D054B: __Balloc_D2A (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001CE4E8: __gdtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x100217966: __ldtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F5D7D: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x10021F35C: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1000030F8: value_double_print (value_double.c:43)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x100001B83: chunk_print (chunk.c:54)
+==83570==    by 0x100006585: test_dico_key_val (test_dictionary.c:44)
+==83570== 
+==83570== 148 (80 direct, 68 indirect) bytes in 1 blocks are definitely lost in loss record 42 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x1001D04A2: __Balloc_D2A (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001CE4E8: __gdtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x100217966: __ldtoa (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F5D7D: __vfprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x10021F35C: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1000030F8: value_double_print (value_double.c:43)
+==83570==    by 0x100001888: chunk_answer_message (chunk.c:25)
+==83570==    by 0x100001B83: chunk_print (chunk.c:54)
+==83570==    by 0x100006585: test_dico_key_val (test_dictionary.c:44)
+==83570== 
+==83570== 65,536 bytes in 1 blocks are still reachable in loss record 66 of 66
+==83570==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83570==    by 0x1001EF789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1002047DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x10021F115: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==83570==    by 0x100006526: test_dico_key_val (test_dictionary.c:40)
+==83570==    by 0x1000062DF: main (test_dictionary.c:61)
+==83570== 
+==83570== LEAK SUMMARY:
+==83570==    definitely lost: 176 bytes in 4 blocks
+==83570==    indirectly lost: 68 bytes in 2 blocks
+==83570==      possibly lost: 0 bytes in 0 blocks
+==83570==    still reachable: 65,536 bytes in 1 blocks
+==83570==         suppressed: 22,212 bytes in 187 blocks
+==83570== 
+==83570== For counts of detected and suppressed errors, rerun with: -v
+==83570== ERROR SUMMARY: 36 errors from 17 contexts (suppressed: 22 from 22)

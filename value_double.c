@@ -41,7 +41,7 @@ basic_type value_double_print(chunk const toprint, va_list va){
   long double value = basic_type_get_long_double( *(basic_type*) (toprint->state) );
   FILE * f = va_arg ( va , FILE * ) ;
   fprintf ( f
-	    , "%Lg"
+	    , "%.6Lf"
 	    , value );
   return basic_type_void; 
 }

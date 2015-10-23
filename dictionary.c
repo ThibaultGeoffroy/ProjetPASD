@@ -85,14 +85,14 @@ void dictionary_set ( dictionary dic ,
 			dic->val = chunk_copy(val);
 			return;
 		}
-		if(compare < 0){
+		if(compare > 0){
 			if(dic->filsgauche == NULL){
 				dic->filsgauche = dictionary_create();
 				dic->filsgauche->pere = dic;
 			}
 			dictionary_set(dic->filsgauche , key , val);
 		}
-		else if(compare > 0){
+		else if(compare < 0){
 			if(dic->filsdroit == NULL){
 				dic->filsdroit = dictionary_create();
 				dic->filsdroit->pere = dic;
@@ -119,7 +119,7 @@ chunk dictionary_get_copy ( dictionary dic ,
 	if (compare == 0){
 		return chunk_copy(dic->val);
 	}
-	if (compare < 0){
+	if (compare > 0){
 		if(dic->filsgauche == NULL){
 			return NULL;
 		}
@@ -127,7 +127,7 @@ chunk dictionary_get_copy ( dictionary dic ,
 			return dictionary_get_copy(dic->filsgauche, key);
 		}
 	}
-	if (compare > 0){
+	if (compare < 0){
 		if(dic->filsdroit ==  NULL){
 			return NULL;
 		}
@@ -135,6 +135,7 @@ chunk dictionary_get_copy ( dictionary dic ,
 			return dictionary_get_copy(dic->filsdroit, key);
 		}
 	}
+	return NULL;
 }
 
 

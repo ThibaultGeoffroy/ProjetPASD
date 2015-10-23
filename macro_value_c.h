@@ -19,7 +19,7 @@
 	return res;							\
   }								\
   bool value_is_ ## type_name ( chunk const ch ) {			\
-    return true ;							\
+    return ch->reactions == value_ ## type_name ## _reactions ;							\
   }
 
 

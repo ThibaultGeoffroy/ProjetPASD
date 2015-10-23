@@ -59,7 +59,7 @@ sstring sstring_create_empty ( void )  {
  */
 sstring sstring_create_string ( char const * const st )  {
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
-	s->size = (unsigned int)sizeof(st)-1;
+	s->size = (unsigned int)strlen(st);
 	s->value = (char*)malloc(s->size*sizeof(char));
 	for(int i = 0; i<s->size ;  i++){
 		(s->value)[i] = st[i];
@@ -155,6 +155,7 @@ void sstring_concatenate ( sstring ss1,
  */
 sstring sstring_copy ( sstring ss )  { 
 	sstring s = sstring_create_string(ss->value);
+	s->size = ss->size;
 	return s ; 
 }
 

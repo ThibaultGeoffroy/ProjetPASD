@@ -1,117 +1,117 @@
-==60980== Memcheck, a memory error detector
-==60980== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==60980== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==60980== Command: ./test_linked_list_chunk
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A27: linked_list_chunk_destroy (linked_list_chunk.c:84)
-==60980==    by 0x1000033D0: main (test_linked_list_chunk.c:67)
-==60980==  Address 0x100a7a390 is 0 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000033D0: main (test_linked_list_chunk.c:67)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x1000032A6: main (test_linked_list_chunk.c:56)
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A32: linked_list_chunk_destroy (linked_list_chunk.c:85)
-==60980==    by 0x1000033D0: main (test_linked_list_chunk.c:67)
-==60980==  Address 0x100a7a398 is 8 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000033D0: main (test_linked_list_chunk.c:67)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x1000032A6: main (test_linked_list_chunk.c:56)
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A27: linked_list_chunk_destroy (linked_list_chunk.c:84)
-==60980==    by 0x1000034AB: main (test_linked_list_chunk.c:80)
-==60980==  Address 0x100a7ac20 is 0 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000034AB: main (test_linked_list_chunk.c:80)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x100001F40: linked_list_chunk_copy (linked_list_chunk.c:237)
-==60980==    by 0x1000033C3: main (test_linked_list_chunk.c:66)
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A32: linked_list_chunk_destroy (linked_list_chunk.c:85)
-==60980==    by 0x1000034AB: main (test_linked_list_chunk.c:80)
-==60980==  Address 0x100a7ac28 is 8 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000034AB: main (test_linked_list_chunk.c:80)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x100001F40: linked_list_chunk_copy (linked_list_chunk.c:237)
-==60980==    by 0x1000033C3: main (test_linked_list_chunk.c:66)
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A27: linked_list_chunk_destroy (linked_list_chunk.c:84)
-==60980==    by 0x1000034FC: main (test_linked_list_chunk.c:85)
-==60980==  Address 0x100a8c570 is 0 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000034FC: main (test_linked_list_chunk.c:85)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x100001F40: linked_list_chunk_copy (linked_list_chunk.c:237)
-==60980==    by 0x1000033FE: main (test_linked_list_chunk.c:70)
-==60980== 
-==60980== Invalid write of size 8
-==60980==    at 0x100001A32: linked_list_chunk_destroy (linked_list_chunk.c:85)
-==60980==    by 0x1000034FC: main (test_linked_list_chunk.c:85)
-==60980==  Address 0x100a8c578 is 8 bytes inside a block of size 16 free'd
-==60980==    at 0x1000122F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001A22: linked_list_chunk_destroy (linked_list_chunk.c:83)
-==60980==    by 0x1000034FC: main (test_linked_list_chunk.c:85)
-==60980==  Block was alloc'd at
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001966: linked_list_chunk_create (linked_list_chunk.c:59)
-==60980==    by 0x100001F40: linked_list_chunk_copy (linked_list_chunk.c:237)
-==60980==    by 0x1000033FE: main (test_linked_list_chunk.c:70)
-==60980== 
-==60980== 
-==60980== HEAP SUMMARY:
-==60980==     in use at exit: 88,036 bytes in 200 blocks
-==60980==   total heap usage: 320 allocs, 120 frees, 94,940 bytes allocated
-==60980== 
-==60980== 264 bytes in 11 blocks are indirectly lost in loss record 46 of 62
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001CFA: linked_list_chunk_add_back (linked_list_chunk.c:161)
-==60980==    by 0x100001F81: linked_list_chunk_copy (linked_list_chunk.c:240)
-==60980==    by 0x1000033C3: main (test_linked_list_chunk.c:66)
-==60980== 
-==60980== 288 (24 direct, 264 indirect) bytes in 1 blocks are definitely lost in loss record 47 of 62
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x100001CFA: linked_list_chunk_add_back (linked_list_chunk.c:161)
-==60980==    by 0x100001F81: linked_list_chunk_copy (linked_list_chunk.c:240)
-==60980==    by 0x1000033C3: main (test_linked_list_chunk.c:66)
-==60980== 
-==60980== 65,536 bytes in 1 blocks are still reachable in loss record 62 of 62
-==60980==    at 0x100011EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==60980==    by 0x1001EB789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
-==60980==    by 0x1002007DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
-==60980==    by 0x10021B115: __v2printf (in /usr/lib/system/libsystem_c.dylib)
-==60980==    by 0x1001F101D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
-==60980==    by 0x1001E951F: fprintf (in /usr/lib/system/libsystem_c.dylib)
-==60980==    by 0x10000353A: test_llc_ch (test_linked_list_chunk.c:34)
-==60980==    by 0x10000330C: main (test_linked_list_chunk.c:59)
-==60980== 
-==60980== LEAK SUMMARY:
-==60980==    definitely lost: 24 bytes in 1 blocks
-==60980==    indirectly lost: 264 bytes in 11 blocks
-==60980==      possibly lost: 0 bytes in 0 blocks
-==60980==    still reachable: 65,536 bytes in 1 blocks
-==60980==         suppressed: 22,212 bytes in 187 blocks
-==60980== 
-==60980== For counts of detected and suppressed errors, rerun with: -v
-==60980== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 22 from 22)
+==83554== Memcheck, a memory error detector
+==83554== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==83554== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==83554== Command: ./test_linked_list_chunk
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x100002097: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==83554==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==83554==  Address 0x100a7e390 is 0 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x100006206: main (test_linked_list_chunk.c:56)
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x1000020A2: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==83554==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==83554==  Address 0x100a7e398 is 8 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x100006206: main (test_linked_list_chunk.c:56)
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x100002097: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==83554==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==83554==  Address 0x100a7ec20 is 0 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x1000025B0: linked_list_chunk_copy (linked_list_chunk.c:237)
+==83554==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x1000020A2: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==83554==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==83554==  Address 0x100a7ec28 is 8 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x1000025B0: linked_list_chunk_copy (linked_list_chunk.c:237)
+==83554==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x100002097: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==83554==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==83554==  Address 0x100a90570 is 0 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x1000025B0: linked_list_chunk_copy (linked_list_chunk.c:237)
+==83554==    by 0x10000635E: main (test_linked_list_chunk.c:70)
+==83554== 
+==83554== Invalid write of size 8
+==83554==    at 0x1000020A2: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==83554==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==83554==  Address 0x100a90578 is 8 bytes inside a block of size 16 free'd
+==83554==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100002092: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==83554==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==83554==  Block was alloc'd at
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x100001FD6: linked_list_chunk_create (linked_list_chunk.c:59)
+==83554==    by 0x1000025B0: linked_list_chunk_copy (linked_list_chunk.c:237)
+==83554==    by 0x10000635E: main (test_linked_list_chunk.c:70)
+==83554== 
+==83554== 
+==83554== HEAP SUMMARY:
+==83554==     in use at exit: 88,036 bytes in 200 blocks
+==83554==   total heap usage: 320 allocs, 120 frees, 94,940 bytes allocated
+==83554== 
+==83554== 264 bytes in 11 blocks are indirectly lost in loss record 46 of 62
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x10000236A: linked_list_chunk_add_back (linked_list_chunk.c:161)
+==83554==    by 0x1000025F1: linked_list_chunk_copy (linked_list_chunk.c:240)
+==83554==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==83554== 
+==83554== 288 (24 direct, 264 indirect) bytes in 1 blocks are definitely lost in loss record 47 of 62
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x10000236A: linked_list_chunk_add_back (linked_list_chunk.c:161)
+==83554==    by 0x1000025F1: linked_list_chunk_copy (linked_list_chunk.c:240)
+==83554==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==83554== 
+==83554== 65,536 bytes in 1 blocks are still reachable in loss record 62 of 62
+==83554==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==83554==    by 0x1001EF789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==83554==    by 0x1002047DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==83554==    by 0x10021F115: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==83554==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==83554==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==83554==    by 0x10000649A: test_llc_ch (test_linked_list_chunk.c:34)
+==83554==    by 0x10000626C: main (test_linked_list_chunk.c:59)
+==83554== 
+==83554== LEAK SUMMARY:
+==83554==    definitely lost: 24 bytes in 1 blocks
+==83554==    indirectly lost: 264 bytes in 11 blocks
+==83554==      possibly lost: 0 bytes in 0 blocks
+==83554==    still reachable: 65,536 bytes in 1 blocks
+==83554==         suppressed: 22,212 bytes in 187 blocks
+==83554== 
+==83554== For counts of detected and suppressed errors, rerun with: -v
+==83554== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 22 from 22)
