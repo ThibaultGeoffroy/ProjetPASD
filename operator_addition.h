@@ -24,7 +24,7 @@
  */
 
 
-OPERATOR_DECLARE ( addition ) 
+//OPERATOR_DECLARE ( addition ) 
 
-
+OPERATOR_FULL(addition)
 # endif

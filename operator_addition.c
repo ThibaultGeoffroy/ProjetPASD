@@ -36,7 +36,7 @@
 
 
 
-static basic_type operator_addition_print ( chunk const ch ,	
+/*static basic_type operator_addition_print ( chunk const ch ,	
 						     va_list va ) {	
     return basic_type_error ;						
   }									
@@ -49,8 +49,10 @@ static basic_type operator_addition_print ( chunk const ch ,
   static basic_type operator_addition_copy ( chunk const ch ,	
 						    va_list va ) {	
     return basic_type_void ;						
-  }	
-static basic_type operator_addition_evaluate( chunk const ch , va_list va ) {
+  }	*/
+ OPERATOR_BASIC_FULL ( addition , "+")
+ OPERATOR_NUMBER (addition , +)
+/*static basic_type operator_addition_evaluate( chunk const ch , va_list va ) {
 	interpretation_context ic = va_arg( va , interpretation_context);
 	chunk ch1 = linked_list_chunk_pop_front(ic->stack);
 	chunk ch2 = linked_list_chunk_pop_front(ic->stack);
@@ -73,13 +75,13 @@ static basic_type operator_addition_evaluate( chunk const ch , va_list va ) {
 	chunk_destroy(ch2);
 	linked_list_chunk_add_front(ic->stack, ch3);
 	return basic_type_void;
-  }
+  }*/
 
-OPERATOR_DECLARE ( addition ) 
+/*OPERATOR_DECLARE ( addition ) 
 
 static const message_action operator_addition_reactions [] = {
     MESSAGE_ACTION__BASIC_OPERATOR( addition ) ,				
     { NULL, NULL }							
-  } ;
+  } ;*/
 
 

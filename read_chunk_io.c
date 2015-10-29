@@ -4,7 +4,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include "read_chunk_io.h"
-
+# include "value.h"
 # include "value_boolean.h"
 # include "value_sstring.h"
 # include "value_double.h"
@@ -12,7 +12,7 @@
 # include "value_block.h"
 # include "value_protected_label.h"
 # include "value_error.h"
-
+# include "operator.h"
 # include "operator_nop.h"
 # include "operator_pop.h"
 # include "operator_print.h"
@@ -130,31 +130,35 @@ chunk read_chunk_io ( FILE * f )  {
 
 	while((c = fgetc(f)) != EOF){
 		// Vraiment vérifier les interactions avec les espaces, fins de ligne.
+		s[0] = c;
 		if(c == ' ' || c == '\n'){
 		}else if ('0'<c && c<'9'){
 			//différencier int/double
 			//On met le premier chiffre
 			bool d = false;
-				while((c = fgetc(f)) != EOF && c != ' ' && c !='\n'){
-					if ('0'<c && c<'9'){
-						//remplit le int/double
-					}else if (c == '.'){
-						if (d)
-							//deux points, erreur
-							return NULL;
-						else
-							d = true;
-					}else
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				s[i] = c;
+				if ('0'<c && c<'9'){
+				}else if (c == '.'){
+					if (d)
+						//deux points, erreur
 						return NULL;
-						//erreur
-				}
-			//return int/double, bool pour déduire?
+					else
+						d = true;
+				}else
+					return NULL;
+					//erreur
+			}
+			if (d)
+				return value_double_create(atof(s));
+			else
+				return value_int_create(atoi(s));
 		/*}else if (c == '\\'){
 			//value protected_label
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			for (int i = 0; i < OPERATOR_CREATOR_LIST_SIZE; ++i){
+			for (int i = 1; i < OPERATOR_CREATOR_LIST_SIZE; ++i){
 				if (0 == strcmp(s, operator_creator_list[i].keyword)){
 					//return value_error
 					return NULL;
@@ -164,49 +168,50 @@ chunk read_chunk_io ( FILE * f )  {
 			//return chunk correspondant*/
 		}else if (c == 't'){
 			//value true
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			buff = "rue";
+			buff = "true";
 			if(0 == strcmp(s,buff))
 				//return chunk correspondant
-				return NULL;
+				return value_boolean_create(true);
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == 'f'){
 			//value false
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			buff = "alse";
+			buff = "false";
 			if(0 == strcmp(s,buff))
-				return NULL;
+				return value_boolean_create(false);
 				//return chunk correspondant
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == '\"'){
 			//value string
-			while((c = fgetc(f)) != EOF && c!='\"'){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				s[i] = c;
 				if(c == '\"'){
-					for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					//A voir, là comme ça, ça marche pas.
+					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 						s[i] = c;
 					}
 					buff = "";
 					if(0 == strcmp(s,buff))
 						//return chunk correspondant
-						return NULL;
+						return value_sstring_create(s);
 					else
 						return NULL;
 						//value_error : input cannot form a legal chunk
-				}else
-					//remplit le string
-					return NULL;
+				}
 			}
 			return NULL;
 			//return value_error : input cannot form a legal chunk
 		}else if (c == '{'){
+			/*
 			//value block
 			int nb_brackets_left_to_close = 0;
 			while((c = fgetc(f)) != EOF){
@@ -217,7 +222,7 @@ chunk read_chunk_io ( FILE * f )  {
 				if(c == '}'){
 					//ajoute le }
 					if (0 == nb_brackets_left_to_close){
-						for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+						for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 							s[i] = c;
 						}
 						buff = "";
@@ -232,35 +237,37 @@ chunk read_chunk_io ( FILE * f )  {
 					//ajoute le char
 				}
 			}
+			*/
 			//return value_error : input cannot form a legal chunk
 		}else if (c == 'n'){
 			//operator nop
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			buff = "op";
+			buff = "nop";
 			if(0 == strcmp(s,buff))
-				return NULL;
+				return operator_nop_create();
 				//return chunk correspondant
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == '+'){
 			//operator +
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 					s[i] = c;
 				}
-				buff = "";
+				buff = "+";
 				if(0 == strcmp(s,buff))
 					//return chunk correspondant
-					return NULL;
+					return operator_addition_create();
 				else
 					return NULL;
 					//value_error : input cannot form a legal chunk
 		}else if (c == '-'){
 			//int / double / operator -
 			if((c = fgetc(f)) == EOF || c == ' '||c =='\n'){
-					//return operator -
+				//return operator -
+				return operator_subtraction_create();
 			}else{
 				if ('0' <= c && c <= '9'){
 					//remplit int/double
@@ -285,36 +292,36 @@ chunk read_chunk_io ( FILE * f )  {
 			}
 		}else if (c == '/'){
 			//operator /
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 					s[i] = c;
 				}
-				buff = "";
+				buff = "/";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_division_create();
 					//return chunk correspondant
 				else
 					return NULL;
 					//value_error : input cannot form a legal chunk
 		}else if (c == '*'){
 			//operator *
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 					s[i] = c;
 				}
-				buff = "";
+				buff = "*";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_multiplication_create();
 					//return chunk correspondant
 				else
 					return NULL;
 					//value_error : input cannot form a legal chunk
 		}else if (c == '%'){
 			//operator %
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 					s[i] = c;
 				}
-				buff = "";
+				buff = "%";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_remainder_create();
 					//return chunk correspondant
 				else
 					return NULL;
@@ -322,39 +329,41 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '<'){
 			//operator < / operator <=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "=";
+				buff = "<=";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_less_equal_create();
 					//return operator <=
 				else
 					return NULL;
 					//return value_error : input cannot form a legal chunk
 			}
 			//return operator <
+			return operator_less_create();
 		}else if (c == '!'){
 			//operator ! / operator !=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "=";
+				buff = "!=";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_different_create();
 					//return operator !=
 				else
 					return NULL;
 					//return value_error : input cannot form a legal chunk
 			}
+			return operator_not_create();
 			//return operator !
 		}else if (c == '='){
 			//operator ==
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "=";
+				buff = "==";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_equal_create();
 					//return operator ==
 				else
 					return NULL;
@@ -364,11 +373,11 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '&'){
 			//operator &&
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "&";
+				buff = "&&";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_and_create();
 					//return operator &&
 				else
 					return NULL;
@@ -378,11 +387,11 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '|'){
 			//operator ||
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "|";
+				buff = "||";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_or_create();
 					//return operator ||
 				else
 					return NULL;
@@ -392,16 +401,16 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'i'){
 			//operator if / operator if_else
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "f";
+				buff = "if";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_if_create();
 					//return operator if
 				else{
-					buff = "f_else";
+					buff = "if_else";
 					if (0 == strcmp(s,buff))
-						return NULL;
+						return operator_if_else_create();
 						//return operator if_else
 					else
 						return NULL;
@@ -411,41 +420,41 @@ chunk read_chunk_io ( FILE * f )  {
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == 'w'){
 			//operator while
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			buff = "hile";
+			buff = "while";
 			if(0 == strcmp(s,buff))
-				return NULL;
-				//return chunk correspondant, vérif char suivant?
+				return operator_while_create();
+				//return chunk correspondant
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == 'c'){
 			//operator copy
-			for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
 			}
-			buff = "opy";
+			buff = "copy";
 			if(0 == strcmp(s,buff))
-				return NULL;
-				//return chunk correspondant, vérif char suivant?
+				return operator_copy_create();
+				//return chunk correspondant
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == 's'){
 				//operator start_trace / operator stop_trace
 				if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-					for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 						s[i] = c;
-					buff = "tart_trace";
+					buff = "start_trace";
 					if(0 == strcmp(s,buff))
-						return NULL;
+						return operator_start_trace_create();
 						//return operator start_trace
 					else{
-						buff = "top_trace";
+						buff = "stop_trace";
 						if (0 == strcmp(s,buff))
-							return NULL;
+							return operator_stop_trace_create();
 							//return operator stop_trace
 						else
 							return NULL;
@@ -456,27 +465,28 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'p'){
 			//operator pop / operator print / operator print_stack / operator print_trace
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 0;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
 					s[i] = c;
-				buff = "op";
+				buff = "pop";
 				if(0 == strcmp(s,buff))
-					return NULL;
+					return operator_pop_create();
 					//return operator pop
 				else{
-					buff = "rint";
+					buff = "print";
 					if (0 == strcmp(s,buff))
-						return NULL;
+						return operator_print_create();
 						//return operator print
 					else{
-						buff = "rint_stack";
+						buff = "print_stack";
 						if (0 == strcmp(s,buff))
-							return NULL;
+							return operator_print_stack_create();
 							//return operator print_stack
 						else{
-							buff = "rint_trace";
+							buff = "print_trace";
 							if (0 == strcmp(s,buff))
+								//Y'a pas de print trace! A vérifier!
+								//return operator_print_trace_create();
 								return NULL;
-								//return operator print_trace
 							else
 								return NULL;
 								//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
@@ -492,5 +502,3 @@ chunk read_chunk_io ( FILE * f )  {
 	//return value_error :
 	return NULL ;
 }
-
-
