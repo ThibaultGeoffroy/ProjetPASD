@@ -202,7 +202,7 @@ chunk read_chunk_io ( FILE * f )  {
 					buff = "";
 					if(0 == strcmp(s,buff))
 						//return chunk correspondant
-						return value_sstring_create(s);
+						return value_sstring_create(sstring_create_string(s));
 					else
 						return NULL;
 						//value_error : input cannot form a legal chunk

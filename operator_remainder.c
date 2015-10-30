@@ -2,7 +2,7 @@
 # include <stdio.h>
 # include <assert.h>
 
-# include "operator_addition.h"
+
 # include "macro_operator_c.h"
 
 # include "value_int.h"

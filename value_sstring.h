@@ -26,7 +26,7 @@
  */
 
 
-VALUE_DECLARE ( sstring , sstring ) 
+VALUE_DECLARE ( sstring , sstring) 
 
 basic_type value_sstring_get_value(chunk const ToGet, va_list va);
 

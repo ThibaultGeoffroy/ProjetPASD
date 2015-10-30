@@ -1,133 +1,133 @@
-==3602== Memcheck, a memory error detector
-==3602== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
-==3602== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
-==3602== Command: ./test_sstring
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D11: main (test_sstring.c:157)
-==3602==  Address 0x100a7e7a9 is 0 bytes after a block of size 9 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x100006322: test_sstring_compare (test_sstring.c:70)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D11: main (test_sstring.c:157)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D11: main (test_sstring.c:157)
-==3602==  Address 0x100a7e849 is 0 bytes after a block of size 9 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x10000637C: test_sstring_compare (test_sstring.c:72)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D11: main (test_sstring.c:157)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005EF4: test_sstring (test_sstring.c:119)
-==3602==    by 0x100005D24: main (test_sstring.c:158)
-==3602==  Address 0x100a7ec80 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x10000637C: test_sstring_compare (test_sstring.c:72)
-==3602==    by 0x100005EF4: test_sstring (test_sstring.c:119)
-==3602==    by 0x100005D24: main (test_sstring.c:158)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F01: test_sstring (test_sstring.c:120)
-==3602==    by 0x100005D24: main (test_sstring.c:158)
-==3602==  Address 0x100a7ed10 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x100006322: test_sstring_compare (test_sstring.c:70)
-==3602==    by 0x100005F01: test_sstring (test_sstring.c:120)
-==3602==    by 0x100005D24: main (test_sstring.c:158)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005EF4: test_sstring (test_sstring.c:119)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602==  Address 0x100a906c0 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x100006322: test_sstring_compare (test_sstring.c:70)
-==3602==    by 0x100005EF4: test_sstring (test_sstring.c:119)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F01: test_sstring (test_sstring.c:120)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602==  Address 0x100a90890 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x10000637C: test_sstring_compare (test_sstring.c:72)
-==3602==    by 0x100005F01: test_sstring (test_sstring.c:120)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602==  Address 0x100a90920 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x100006322: test_sstring_compare (test_sstring.c:70)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602== 
-==3602== Invalid read of size 1
-==3602==    at 0x100017ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001424: sstring_compare (sstring.c:176)
-==3602==    by 0x10000642E: test_sstring_compare (test_sstring.c:80)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602==  Address 0x100a909b0 is 0 bytes after a block of size 0 alloc'd
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x100001056: sstring_create_string (sstring.c:63)
-==3602==    by 0x10000637C: test_sstring_compare (test_sstring.c:72)
-==3602==    by 0x100005F0E: test_sstring (test_sstring.c:121)
-==3602==    by 0x100005D37: main (test_sstring.c:159)
-==3602== 
-==3602== 
-==3602== HEAP SUMMARY:
-==3602==     in use at exit: 87,748 bytes in 188 blocks
-==3602==   total heap usage: 371 allocs, 183 frees, 95,124 bytes allocated
-==3602== 
-==3602== 65,536 bytes in 1 blocks are still reachable in loss record 60 of 60
-==3602==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
-==3602==    by 0x1001EF789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
-==3602==    by 0x1002047DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
-==3602==    by 0x1001EE9E5: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
-==3602==    by 0x1001F315C: puts (in /usr/lib/system/libsystem_c.dylib)
-==3602==    by 0x100006235: test_sstring_println_st_ss (test_sstring.c:49)
-==3602==    by 0x100005E80: test_sstring (test_sstring.c:114)
-==3602==    by 0x100005D11: main (test_sstring.c:157)
-==3602== 
-==3602== LEAK SUMMARY:
-==3602==    definitely lost: 0 bytes in 0 blocks
-==3602==    indirectly lost: 0 bytes in 0 blocks
-==3602==      possibly lost: 0 bytes in 0 blocks
-==3602==    still reachable: 65,536 bytes in 1 blocks
-==3602==         suppressed: 22,212 bytes in 187 blocks
-==3602== 
-==3602== For counts of detected and suppressed errors, rerun with: -v
-==3602== ERROR SUMMARY: 18 errors from 8 contexts (suppressed: 22 from 22)
+==6866== Memcheck, a memory error detector
+==6866== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==6866== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==6866== Command: ./test_sstring
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018AE4: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D11: main (test_sstring.c:157)
+==6866==  Address 0x100a7f689 is 0 bytes after a block of size 9 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x100007322: test_sstring_compare (test_sstring.c:70)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D11: main (test_sstring.c:157)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018AE6: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D11: main (test_sstring.c:157)
+==6866==  Address 0x100a7f729 is 0 bytes after a block of size 9 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x10000737C: test_sstring_compare (test_sstring.c:72)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D11: main (test_sstring.c:157)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006EF4: test_sstring (test_sstring.c:119)
+==6866==    by 0x100006D24: main (test_sstring.c:158)
+==6866==  Address 0x100a7fb60 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x10000737C: test_sstring_compare (test_sstring.c:72)
+==6866==    by 0x100006EF4: test_sstring (test_sstring.c:119)
+==6866==    by 0x100006D24: main (test_sstring.c:158)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F01: test_sstring (test_sstring.c:120)
+==6866==    by 0x100006D24: main (test_sstring.c:158)
+==6866==  Address 0x100a7fbf0 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x100007322: test_sstring_compare (test_sstring.c:70)
+==6866==    by 0x100006F01: test_sstring (test_sstring.c:120)
+==6866==    by 0x100006D24: main (test_sstring.c:158)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006EF4: test_sstring (test_sstring.c:119)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866==  Address 0x100a91460 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x100007322: test_sstring_compare (test_sstring.c:70)
+==6866==    by 0x100006EF4: test_sstring (test_sstring.c:119)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F01: test_sstring (test_sstring.c:120)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866==  Address 0x100a91630 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x10000737C: test_sstring_compare (test_sstring.c:72)
+==6866==    by 0x100006F01: test_sstring (test_sstring.c:120)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018AC9: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866==  Address 0x100a916c0 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x100007322: test_sstring_compare (test_sstring.c:70)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866== 
+==6866== Invalid read of size 1
+==6866==    at 0x100018ACB: _platform_strcmp (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002414: sstring_compare (sstring.c:176)
+==6866==    by 0x10000742E: test_sstring_compare (test_sstring.c:80)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866==  Address 0x100a91750 is 0 bytes after a block of size 0 alloc'd
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x100002046: sstring_create_string (sstring.c:63)
+==6866==    by 0x10000737C: test_sstring_compare (test_sstring.c:72)
+==6866==    by 0x100006F0E: test_sstring (test_sstring.c:121)
+==6866==    by 0x100006D37: main (test_sstring.c:159)
+==6866== 
+==6866== 
+==6866== HEAP SUMMARY:
+==6866==     in use at exit: 87,716 bytes in 188 blocks
+==6866==   total heap usage: 368 allocs, 180 frees, 95,020 bytes allocated
+==6866== 
+==6866== 65,536 bytes in 1 blocks are still reachable in loss record 61 of 61
+==6866==    at 0x100016EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==6866==    by 0x1001F0789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==6866==    by 0x1002057DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==6866==    by 0x1001EF9E5: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==6866==    by 0x1001F415C: puts (in /usr/lib/system/libsystem_c.dylib)
+==6866==    by 0x100007235: test_sstring_println_st_ss (test_sstring.c:49)
+==6866==    by 0x100006E80: test_sstring (test_sstring.c:114)
+==6866==    by 0x100006D11: main (test_sstring.c:157)
+==6866== 
+==6866== LEAK SUMMARY:
+==6866==    definitely lost: 0 bytes in 0 blocks
+==6866==    indirectly lost: 0 bytes in 0 blocks
+==6866==      possibly lost: 0 bytes in 0 blocks
+==6866==    still reachable: 65,536 bytes in 1 blocks
+==6866==         suppressed: 22,180 bytes in 187 blocks
+==6866== 
+==6866== For counts of detected and suppressed errors, rerun with: -v
+==6866== ERROR SUMMARY: 18 errors from 8 contexts (suppressed: 23 from 23)
