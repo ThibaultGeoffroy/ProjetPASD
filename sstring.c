@@ -61,7 +61,7 @@ sstring sstring_create_string ( char const * const st )  {
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
 	s->size = (unsigned int)strlen(st);
 	s->value = (char*)malloc(s->size*sizeof(char));
-	for(int i = 0; i<s->size ;  i++){
+	for(unsigned int i = 0; i<s->size ;  i++){
 		(s->value)[i] = st[i];
 	}
 	return s; 

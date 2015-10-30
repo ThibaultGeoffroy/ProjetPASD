@@ -40,7 +40,7 @@
   static basic_type operator_ ## op_name ## _copy ( chunk const ch ,	\
 						    va_list va ) {	\
     chunk ch2 = malloc(sizeof(struct chunk_struct)); \
-    ch2 = &(operator_ ## op_name ## _instance); \
+    /*ch2 = &(operator_ ## op_name ## _instance); */\
     return basic_type_pointer(ch2);						\
   }									\
 									\
@@ -60,7 +60,7 @@
   }									\
 									\
   bool operator_is_ ## op_name ( chunk const ch ) {			\
-    return (ch->reactions == &(operator_ ## op_name ## _reactions)) ; 		\
+    return (ch->reactions[0].action == (operator_ ## op_name ## _reactions)->action) ; 		\
   }
 
 

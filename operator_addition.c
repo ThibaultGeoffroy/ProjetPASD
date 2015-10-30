@@ -50,8 +50,8 @@
 						    va_list va ) {	
     return basic_type_void ;						
   }	*/
- OPERATOR_BASIC_FULL ( addition , "+")
  OPERATOR_NUMBER (addition , +)
+ OPERATOR_BASIC_FULL ( addition , "+")
 /*static basic_type operator_addition_evaluate( chunk const ch , va_list va ) {
 	interpretation_context ic = va_arg( va , interpretation_context);
 	chunk ch1 = linked_list_chunk_pop_front(ic->stack);
