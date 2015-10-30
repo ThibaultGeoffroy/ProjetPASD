@@ -2,7 +2,7 @@
 # include <string.h>
 # include <ctype.h>
 # include <assert.h>
-
+# include <stdio.h>
 # include "sstring.h"
 
 # undef NDEBUG    // FORCE ASSERT ACTIVATION
@@ -61,9 +61,11 @@ sstring sstring_create_string ( char const * const st )  {
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
 	s->size = (unsigned int)strlen(st);
 	s->value = (char*)malloc(s->size*sizeof(char));
-	for(unsigned int i = 0; i<s->size ;  i++){
+	strcpy(s->value , st);
+	//s->value = (char*)malloc(s->size*sizeof(char));
+	/*for(unsigned int i = 0; i<s->size ;  i++){
 		(s->value)[i] = st[i];
-	}
+		}*/
 	return s; 
 }
 
@@ -180,6 +182,7 @@ int sstring_compare ( sstring ss1 ,
 	if(i > 0){
 		i = 1;
 	}
+	//printf("(%d=",i);
 	return i; 
 }
 

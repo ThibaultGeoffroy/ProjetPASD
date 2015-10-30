@@ -78,6 +78,7 @@ static void test_sstring_compare (  char const * const st1 ,
 	? -1
 	: 0 ) ;
   int ss_cmp = sstring_compare ( ss1 , ss2 ) ;
+  //printf("%d)", ss_cmp);
   if ( cmp != ss_cmp ) {
     fprintf ( stdout , "ERROR: \"%s\" <=> \"%s\" = %d should be %d\n" ,
 	      st1 ,

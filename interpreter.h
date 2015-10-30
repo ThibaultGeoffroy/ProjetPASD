@@ -74,8 +74,6 @@ extern void interprete_chunk_list ( linked_list_chunk llc ,
  * \pre no pointer is NULL
  */
 extern void interprete ( FILE * input ,
-			 bool do_trace ) ;
-
-
+			 bool do_trace);
 
 # endif

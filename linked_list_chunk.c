@@ -112,7 +112,6 @@ bool linked_list_chunk_is_empty ( linked_list_chunk llc)  {
 void linked_list_chunk_print ( linked_list_chunk llc ,
 				      FILE * f )  {
 	assert(llc != NULL);
-
 	inner_linked_chunk* ilc = llc->first;
 	while(ilc != NULL){
 		chunk_answer_message(ilc->value , "print", f);

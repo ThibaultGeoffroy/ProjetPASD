@@ -1,7 +1,7 @@
 # include <stdio.h>
 # include <assert.h>
 # include <stdlib.h>
-
+# include <string.h>
 
 # include "value.h"
 # include "operator.h"
@@ -9,11 +9,9 @@
 # include "interpreter.h"
 # include "value_block.h"
 
-
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
-
-
+#define MAXADDEDLENGTH 11
 
 void interprete_chunk ( chunk ch, interpretation_context ic ){
 
@@ -43,8 +41,8 @@ void interprete ( FILE * f, bool do_trace ){
   interpretation_context ic = malloc(sizeof(struct interpretation_context_struct));
   ic->stack = linked_list_chunk_create();
   ic->dic = dictionary_create();
-  while( ( (*(basic_type*)ToInterprete->state).type == t_error ) && 
-	 (*(basic_type*)ToInterprete->state).value.val_long_long_int  == 2 ) {
+  while( !( ( (*(basic_type*)ToInterprete->state).type == t_error)  && 
+	    ( (*(basic_type*)ToInterprete->state).value.val_long_long_int  == 2 ) ) ) {
 
     if( (*(basic_type*)ToInterprete->state).type == t_pointer ){
       /*
@@ -58,7 +56,11 @@ void interprete ( FILE * f, bool do_trace ){
       interprete_chunk(ToInterprete, ic);
     }
     ToInterprete = read_chunk_io(f);
-
+    if(ToInterprete == NULL){
+      printf("======== final stack =============\n");
+      linked_list_chunk_print( ic->stack , stdout);
+      return ;
+    }
   }  
 }
 

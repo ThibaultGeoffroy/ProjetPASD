@@ -40,14 +40,15 @@ static void help_message ( char const * const prog_name ) {
 int main ( int const argc , char const * const argv [] ) {
 char* buff1 = "-h";
 char* buff2 = "-t";
-FILE * input = fopen(argv[argc-1], "r");
-if(argc == 4){
+FILE * input = fopen(argv[1], "r");
+interprete(input, false);
+/*if(argc == 4){
 
 if(strcmp(argv[1], buff1) == 0 || strcmp(argv[2], buff1) == 0){
 help_message ( argv [ 0 ] ) ;
 }
 if(strcmp(argv[1], buff2) == 0 || strcmp(argv[2], buff2) == 0){
-interprete(input, true);
+interprete(input, false);
 }else{
 interprete(input, false);
 }
@@ -59,11 +60,10 @@ interprete(input, false);
     }
 
     if(strcmp(argv[1], buff2) == 0){
-      interprete(input, true);
+interprete(input, false);
     }else{
-      interprete(input, false);
+interprete(input, false);
 } 	      
-}
-return 0 ;
+}*/
 return 0;
 }

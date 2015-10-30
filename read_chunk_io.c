@@ -132,22 +132,23 @@ chunk read_chunk_io ( FILE * f )  {
 		// Vraiment vérifier les interactions avec les espaces, fins de ligne.
 		s[0] = c;
 		if(c == ' ' || c == '\n'){
-		}else if ('0'<c && c<'9'){
+		}else if ('0'<=c && c<='9'){
 			//différencier int/double
 			//On met le premier chiffre
 			bool d = false;
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				s[i] = c;
-				if ('0'<c && c<'9'){
+				if ('0'<=c && c<='9'){
 				}else if (c == '.'){
 					if (d)
 						//deux points, erreur
 						return NULL;
 					else
 						d = true;
-				}else
+				}else{
 					return NULL;
 					//erreur
+				}
 			}
 			if (d)
 				return value_double_create(atof(s));
@@ -270,25 +271,27 @@ chunk read_chunk_io ( FILE * f )  {
 				return operator_subtraction_create();
 			}else{
 				if ('0' <= c && c <= '9'){
-					//remplit int/double
-					bool d = false;
-					while((c = fgetc(f)) != EOF && c != ' ' && c !='\n'){
-						if ('0'<c && c<'9'){
-							return NULL;
-							//remplit le int/double
-						}else if (c == '.'){
-							if (d)
-								return NULL;
-								//deux points, erreur
-							else
-								d = true;
-						}else
-							return NULL;
-							//erreur
-					}
-				//return int/double, bool pour déduire?
+				  s[1] = c;
+				  bool d = false;
+				  for (int i = 2;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				    s[i] = c;
+				    if ('0'<=c && c<='9'){
+				    }else if (c == '.'){
+				      if (d)
+					//deux points, erreur
+					return NULL;
+				      else
+					d = true;
+				    }else
+				      return NULL;
+				    //erreur
+				  }
+				  if (d)
+				    return value_double_create(atof(s));
+				  else
+				    return value_int_create(atoi(s));
+				  //return value_error : input cannot form a legal chunk
 				}
-				//return value_error : input cannot form a legal chunk
 			}
 		}else if (c == '/'){
 			//operator /
