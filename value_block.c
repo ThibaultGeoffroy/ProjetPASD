@@ -8,7 +8,7 @@
 # include "macro_value_c.h"
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
- static const message_action value_block_reactions [] = {
+const message_action value_block_reactions [] = {
  	MESSAGE_ACTION__BASIC_VALUE(block),
   { NULL, NULL }
 };

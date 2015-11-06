@@ -38,32 +38,23 @@ static void help_message ( char const * const prog_name ) {
  * THE MAIN FUNCTION
  */
 int main ( int const argc , char const * const argv [] ) {
-char* buff1 = "-h";
-char* buff2 = "-t";
-FILE * input = fopen(argv[1], "r");
-interprete(input, false);
-/*if(argc == 4){
-
-if(strcmp(argv[1], buff1) == 0 || strcmp(argv[2], buff1) == 0){
-help_message ( argv [ 0 ] ) ;
-}
-if(strcmp(argv[1], buff2) == 0 || strcmp(argv[2], buff2) == 0){
-interprete(input, false);
-}else{
-interprete(input, false);
-}
-
-}else{
-
-    if(strcmp(argv[1], buff1) == 0){
+  char* buff1 = "-h";
+  bool trace = false;
+  char* buff2 = "-t";
+  FILE * input;
+  for(int x = 1; x < argc; x++){
+    if(strcmp(argv[x], buff1) == 0){
       help_message ( argv [ 0 ] ) ;
-    }
-
-    if(strcmp(argv[1], buff2) == 0){
-interprete(input, false);
     }else{
-interprete(input, false);
-} 	      
-}*/
-return 0;
+      if(strcmp(argv[x], buff2) == 0){
+	trace = true;
+      }else{
+	input = fopen(argv[x], "r");
+      }
+    }
+  }
+ interprete(input, trace);
+ fclose(input);
+ return 0;
 }
+ 

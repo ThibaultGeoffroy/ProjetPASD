@@ -90,7 +90,6 @@ chunk read_chunk_io ( FILE * f )  {
 
 
 
-	int c;
 	/*
 	Values :
 	chiffre = int/double => différencié par '.'
@@ -125,8 +124,13 @@ chunk read_chunk_io ( FILE * f )  {
 	start_trace
 	stop_trace
 	*/
-	char * s = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
+	int c;
 	char * buff;
+	bool overflow = false;
+	char * s = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
+	char * longs = NULL;
+	char * save = NULL;
+	int taillelongs = TOKEN_KEYWORD_MAX_LENGTH;
 
 	while((c = fgetc(f)) != EOF){
 		// Vraiment vérifier les interactions avec les espaces, fins de ligne.
@@ -137,6 +141,9 @@ chunk read_chunk_io ( FILE * f )  {
 			//On met le premier chiffre
 			bool d = false;
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					strcpy(longs,s);
+				}
 				s[i] = c;
 				if ('0'<=c && c<='9'){
 				}else if (c == '.'){
@@ -154,10 +161,26 @@ chunk read_chunk_io ( FILE * f )  {
 				return value_double_create(atof(s));
 			else
 				return value_int_create(atoi(s));
-		/*}else if (c == '\\'){
+		}else if (c == '\\'){
 			//value protected_label
-			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				s[i] = c;
+			bool error = false;
+			if (((c = fgetc(f)) <= 'z' && 'a'<= c) || (c <= 'Z' && 'A'<= c)){
+				s[0] = c;
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
+					s[i] = c;
+					if ((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c)){
+						error = true;
+					}
+				}
+				if(error){
+				}	//return value_error
+				return value_protected_label_create(sstring_create_string(s));
+			}else{
+				//return value_error
 			}
 			for (int i = 1; i < OPERATOR_CREATOR_LIST_SIZE; ++i){
 				if (0 == strcmp(s, operator_creator_list[i].keyword)){
@@ -166,10 +189,14 @@ chunk read_chunk_io ( FILE * f )  {
 				}
 			}
 			return NULL;
-			//return chunk correspondant*/
+			//return chunk correspondant
 		}else if (c == 't'){
 			//value true
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
 			}
 			buff = "true";
@@ -182,6 +209,10 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'f'){
 			//value false
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
 			}
 			buff = "false";
@@ -191,13 +222,31 @@ chunk read_chunk_io ( FILE * f )  {
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
-		}else if (c == '\"'){
+			/*}else if (c == '\"'){
 			//value string
+			bool backslash = false;
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
-				if(c == '\"'){
-					//A voir, là comme ça, ça marche pas.
-					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(c == '\\')
+					backslash = true;
+				if (c == '\"'){
+					if(!backslash){
+						for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+						}
+						buff = "";
+						if(0 == strcmp(s,buff))
+							//return chunk correspondant
+							return value_sstring_create(sstring_create_string(s));
+						else
+							return NULL;
+							//value_error : input cannot form a legal chunk
+					}
+				}
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 						s[i] = c;
 					}
 					buff = "";
@@ -210,7 +259,7 @@ chunk read_chunk_io ( FILE * f )  {
 				}
 			}
 			return NULL;
-			//return value_error : input cannot form a legal chunk
+			//return value_error : input cannot form a legal chunk*/
 		}else if (c == '{'){
 			/*
 			//value block
@@ -243,6 +292,10 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'n'){
 			//operator nop
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
 			}
 			buff = "nop";
@@ -252,11 +305,31 @@ chunk read_chunk_io ( FILE * f )  {
 			else
 				return NULL;
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+		}else if (c == 'd'){
+			//operator def
+			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
+				s[i] = c;
+			}
+			buff = "def";
+			if(0 == strcmp(s,buff))
+				return operator_def_create();
+				//return chunk correspondant
+			else
+				return NULL;
+				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == '+'){
 			//operator +
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					s[i] = c;
+				if(i>=50){
+					continue;
+					overflow = true;
 				}
+				s[i] = c;
+			}
 				buff = "+";
 				if(0 == strcmp(s,buff))
 					//return chunk correspondant
@@ -271,33 +344,39 @@ chunk read_chunk_io ( FILE * f )  {
 				return operator_subtraction_create();
 			}else{
 				if ('0' <= c && c <= '9'){
-				  s[1] = c;
-				  bool d = false;
-				  for (int i = 2;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				    s[i] = c;
-				    if ('0'<=c && c<='9'){
-				    }else if (c == '.'){
-				      if (d)
-					//deux points, erreur
-					return NULL;
-				      else
-					d = true;
-				    }else
-				      return NULL;
-				    //erreur
-				  }
-				  if (d)
-				    return value_double_create(atof(s));
-				  else
-				    return value_int_create(atoi(s));
-				  //return value_error : input cannot form a legal chunk
+					s[1] = c;
+					bool d = false;
+					for (int i = 2;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+						s[i] = c;
+						if ('0'<=c && c<='9'){
+						}else if (c == '.'){
+							if (d)
+								//deux points, erreur
+								return NULL;
+							else
+								d = true;
+						}else
+							return NULL;
+						//erreur
+					}
+					if (d)
+						return value_double_create(atof(s));
+					else
+						return value_int_create(atoi(s));
+				}else{
+					while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+					//return value_error : input cannot form a legal chunk
 				}
 			}
 		}else if (c == '/'){
 			//operator /
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					s[i] = c;
+				if(i>=50){
+					continue;
+					overflow = true;
 				}
+				s[i] = c;
+			}
 				buff = "/";
 				if(0 == strcmp(s,buff))
 					return operator_division_create();
@@ -308,8 +387,12 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '*'){
 			//operator *
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					s[i] = c;
+				if(i>=50){
+					continue;
+					overflow = true;
 				}
+				s[i] = c;
+			}
 				buff = "*";
 				if(0 == strcmp(s,buff))
 					return operator_multiplication_create();
@@ -320,20 +403,29 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '%'){
 			//operator %
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					s[i] = c;
+				if(i>=50){
+					continue;
+					overflow = true;
 				}
-				buff = "%";
-				if(0 == strcmp(s,buff))
-					return operator_remainder_create();
-					//return chunk correspondant
-				else
-					return NULL;
-					//value_error : input cannot form a legal chunk
+				s[i] = c;
+			}
+			buff = "%";
+			if(0 == strcmp(s,buff))
+				return operator_remainder_create();
+				//return chunk correspondant
+			else
+				return NULL;
+				//value_error : input cannot form a legal chunk
 		}else if (c == '<'){
 			//operator < / operator <=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "<=";
 				if(0 == strcmp(s,buff))
 					return operator_less_equal_create();
@@ -347,8 +439,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '!'){
 			//operator ! / operator !=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "!=";
 				if(0 == strcmp(s,buff))
 					return operator_different_create();
@@ -362,8 +459,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '='){
 			//operator ==
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "==";
 				if(0 == strcmp(s,buff))
 					return operator_equal_create();
@@ -376,8 +478,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '&'){
 			//operator &&
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "&&";
 				if(0 == strcmp(s,buff))
 					return operator_and_create();
@@ -390,8 +497,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == '|'){
 			//operator ||
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "||";
 				if(0 == strcmp(s,buff))
 					return operator_or_create();
@@ -404,8 +516,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'i'){
 			//operator if / operator if_else
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "if";
 				if(0 == strcmp(s,buff))
 					return operator_if_create();
@@ -424,6 +541,10 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'w'){
 			//operator while
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
 			}
 			buff = "while";
@@ -436,6 +557,10 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'c'){
 			//operator copy
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+				if(i>=50){
+					continue;
+					overflow = true;
+				}
 				s[i] = c;
 			}
 			buff = "copy";
@@ -448,8 +573,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 's'){
 				//operator start_trace / operator stop_trace
 				if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+						if(i>=50){
+							continue;
+							overflow = true;
+						}
 						s[i] = c;
+					}
 					buff = "start_trace";
 					if(0 == strcmp(s,buff))
 						return operator_start_trace_create();
@@ -468,8 +598,13 @@ chunk read_chunk_io ( FILE * f )  {
 		}else if (c == 'p'){
 			//operator pop / operator print / operator print_stack / operator print_trace
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i)
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=50){
+						continue;
+						overflow = true;
+					}
 					s[i] = c;
+				}
 				buff = "pop";
 				if(0 == strcmp(s,buff))
 					return operator_pop_create();

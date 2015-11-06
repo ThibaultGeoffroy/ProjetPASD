@@ -49,6 +49,7 @@
  */
 static void test_chunk ( chunk ch ,
 			 char const * const st ) {
+  basic_type tocast = *(basic_type*)ch->state;	
   assert ( NULL != ch ) ;
   assert ( NULL != st ) ;
   printf ( "== %s ==\n" , st ) ;

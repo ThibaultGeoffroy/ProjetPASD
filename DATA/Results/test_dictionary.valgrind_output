@@ -1,401 +1,401 @@
-==7710== Memcheck, a memory error detector
-==7710== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==7710== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
-==7710== Command: ./test_dictionary
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2E0F4: strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F4B: sstring_create_string (sstring.c:62)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2E1E4: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710==  Address 0x51fc504 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x404781: dictionary_get_copy (dictionary.c:127)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710==  Address 0x51fc614 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x404781: dictionary_get_copy (dictionary.c:127)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710==  Address 0x51fc504 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404BFB: main (test_dictionary.c:62)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C2B: main (test_dictionary.c:63)
-==7710==  Address 0x51fc8c3 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C2B: main (test_dictionary.c:63)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710==  Address 0x51fcc83 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x4047B4: dictionary_get_copy (dictionary.c:135)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710==  Address 0x51fcd93 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x40470D: dictionary_set (dictionary.c:100)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x404735: dictionary_get_copy (dictionary.c:118)
-==7710==    by 0x4047B4: dictionary_get_copy (dictionary.c:135)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710==  Address 0x51fcc83 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C79: main (test_dictionary.c:65)
-==7710==  Address 0x51fd045 is 0 bytes after a block of size 5 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C79: main (test_dictionary.c:65)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404C83: main (test_dictionary.c:66)
-==7710==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404C83: main (test_dictionary.c:66)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710==  Address 0x51fd4a7 is 0 bytes after a block of size 7 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2E0F4: strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F4B: sstring_create_string (sstring.c:62)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x4028CD: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x404619: dictionary_set (dictionary.c:78)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404C83: main (test_dictionary.c:66)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2E1E4: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x4028CD: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x404619: dictionary_set (dictionary.c:78)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404C83: main (test_dictionary.c:66)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x4028CD: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x404619: dictionary_set (dictionary.c:78)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710==  Address 0x51fd659 is 0 bytes after a block of size 9 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x4028CD: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x404619: dictionary_set (dictionary.c:78)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404CD3: main (test_dictionary.c:72)
-==7710==  Address 0x51fd9a3 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404CD3: main (test_dictionary.c:72)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x40463C: dictionary_set (dictionary.c:82)
-==7710==    by 0x40470D: dictionary_set (dictionary.c:100)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404CD3: main (test_dictionary.c:72)
-==7710==  Address 0x51fcd93 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x40470D: dictionary_set (dictionary.c:100)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C5B: main (test_dictionary.c:64)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x40463C: dictionary_set (dictionary.c:82)
-==7710==    by 0x40470D: dictionary_set (dictionary.c:100)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404CD3: main (test_dictionary.c:72)
-==7710==  Address 0x51fd9a3 is 0 bytes after a block of size 3 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404CD3: main (test_dictionary.c:72)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404CF1: main (test_dictionary.c:73)
-==7710==  Address 0x51fdc55 is 0 bytes after a block of size 5 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404CF1: main (test_dictionary.c:73)
-==7710== 
-==7710== Invalid write of size 1
-==7710==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F85: sstring_create_string (sstring.c:64)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404D0F: main (test_dictionary.c:74)
-==7710==  Address 0x51fdf04 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404D0F: main (test_dictionary.c:74)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x40463C: dictionary_set (dictionary.c:82)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404D0F: main (test_dictionary.c:74)
-==7710==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x4011F5: sstring_copy (sstring.c:159)
-==7710==    by 0x404606: dictionary_set (dictionary.c:77)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404BCB: main (test_dictionary.c:61)
-==7710== 
-==7710== Invalid read of size 1
-==7710==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x401236: sstring_compare (sstring.c:178)
-==7710==    by 0x40463C: dictionary_set (dictionary.c:82)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404D0F: main (test_dictionary.c:74)
-==7710==  Address 0x51fdf04 is 0 bytes after a block of size 4 alloc'd
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x400F63: sstring_create_string (sstring.c:63)
-==7710==    by 0x404A75: test_dico_key_val (test_dictionary.c:38)
-==7710==    by 0x404D0F: main (test_dictionary.c:74)
-==7710== 
-==7710== 
-==7710== HEAP SUMMARY:
-==7710==     in use at exit: 96 bytes in 3 blocks
-==7710==   total heap usage: 96 allocs, 93 frees, 1,915 bytes allocated
-==7710== 
-==7710== 32 bytes in 1 blocks are definitely lost in loss record 1 of 3
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x4029B5: value_protected_label_create (value_protected_label.c:69)
-==7710==    by 0x404C8B: main (test_dictionary.c:66)
-==7710== 
-==7710== 32 bytes in 1 blocks are definitely lost in loss record 2 of 3
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x4029B5: value_protected_label_create (value_protected_label.c:69)
-==7710==    by 0x4028D5: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x404619: dictionary_set (dictionary.c:78)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x4046C0: dictionary_set (dictionary.c:93)
-==7710==    by 0x404A90: test_dico_key_val (test_dictionary.c:39)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710== 
-==7710== 32 bytes in 1 blocks are definitely lost in loss record 3 of 3
-==7710==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
-==7710==    by 0x4029B5: value_protected_label_create (value_protected_label.c:69)
-==7710==    by 0x4028D5: value_protected_label_copy (value_protected_label.c:57)
-==7710==    by 0x400CFC: chunk_answer_message (chunk.c:25)
-==7710==    by 0x400DBF: chunk_copy (chunk.c:38)
-==7710==    by 0x40474E: dictionary_get_copy (dictionary.c:120)
-==7710==    by 0x404781: dictionary_get_copy (dictionary.c:127)
-==7710==    by 0x404781: dictionary_get_copy (dictionary.c:127)
-==7710==    by 0x404781: dictionary_get_copy (dictionary.c:127)
-==7710==    by 0x404AD6: test_dico_key_val (test_dictionary.c:42)
-==7710==    by 0x404C9F: main (test_dictionary.c:66)
-==7710== 
-==7710== LEAK SUMMARY:
-==7710==    definitely lost: 96 bytes in 3 blocks
-==7710==    indirectly lost: 0 bytes in 0 blocks
-==7710==      possibly lost: 0 bytes in 0 blocks
-==7710==    still reachable: 0 bytes in 0 blocks
-==7710==         suppressed: 0 bytes in 0 blocks
-==7710== 
-==7710== For counts of detected and suppressed errors, rerun with: -v
-==7710== ERROR SUMMARY: 61 errors from 29 contexts (suppressed: 0 from 0)
+==11340== Memcheck, a memory error detector
+==11340== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
+==11340== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
+==11340== Command: ./test_dictionary
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2E0F4: strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400F8B: sstring_create_string (sstring.c:62)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2E1E4: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340==  Address 0x51fc1b4 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340==  Address 0x51fc504 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404A3C: dictionary_get_copy (dictionary.c:127)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340==  Address 0x51fc614 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404A3C: dictionary_get_copy (dictionary.c:127)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340==  Address 0x51fc504 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405105: main (test_dictionary.c:62)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405135: main (test_dictionary.c:63)
+==11340==  Address 0x51fc8c3 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405135: main (test_dictionary.c:63)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340==  Address 0x51fcc83 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404A6F: dictionary_get_copy (dictionary.c:135)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340==  Address 0x51fcd93 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x4049C8: dictionary_set (dictionary.c:100)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4049F0: dictionary_get_copy (dictionary.c:118)
+==11340==    by 0x404A6F: dictionary_get_copy (dictionary.c:135)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340==  Address 0x51fcc83 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405183: main (test_dictionary.c:65)
+==11340==  Address 0x51fd045 is 0 bytes after a block of size 5 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405183: main (test_dictionary.c:65)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x40518D: main (test_dictionary.c:66)
+==11340==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x40518D: main (test_dictionary.c:66)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340==  Address 0x51fd4a7 is 0 bytes after a block of size 7 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2E0F4: strlen (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400F8B: sstring_create_string (sstring.c:62)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x40290D: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x4048D4: dictionary_set (dictionary.c:78)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x40518D: main (test_dictionary.c:66)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2E1E4: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x40290D: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x4048D4: dictionary_set (dictionary.c:78)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340==  Address 0x51fd359 is 0 bytes after a block of size 9 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x40518D: main (test_dictionary.c:66)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x40290D: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x4048D4: dictionary_set (dictionary.c:78)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340==  Address 0x51fd659 is 0 bytes after a block of size 9 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x40290D: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x4048D4: dictionary_set (dictionary.c:78)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051DD: main (test_dictionary.c:72)
+==11340==  Address 0x51fd9a3 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051DD: main (test_dictionary.c:72)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4048F7: dictionary_set (dictionary.c:82)
+==11340==    by 0x4049C8: dictionary_set (dictionary.c:100)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051DD: main (test_dictionary.c:72)
+==11340==  Address 0x51fcd93 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x4049C8: dictionary_set (dictionary.c:100)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x405165: main (test_dictionary.c:64)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4048F7: dictionary_set (dictionary.c:82)
+==11340==    by 0x4049C8: dictionary_set (dictionary.c:100)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051DD: main (test_dictionary.c:72)
+==11340==  Address 0x51fd9a3 is 0 bytes after a block of size 3 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051DD: main (test_dictionary.c:72)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051FB: main (test_dictionary.c:73)
+==11340==  Address 0x51fdc55 is 0 bytes after a block of size 5 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x4051FB: main (test_dictionary.c:73)
+==11340== 
+==11340== Invalid write of size 1
+==11340==    at 0x4C2E1F3: strcpy (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FC5: sstring_create_string (sstring.c:64)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405219: main (test_dictionary.c:74)
+==11340==  Address 0x51fdf04 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405219: main (test_dictionary.c:74)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1C8: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4048F7: dictionary_set (dictionary.c:82)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x405219: main (test_dictionary.c:74)
+==11340==  Address 0x51fc254 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x401235: sstring_copy (sstring.c:159)
+==11340==    by 0x4048C1: dictionary_set (dictionary.c:77)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4050D5: main (test_dictionary.c:61)
+==11340== 
+==11340== Invalid read of size 1
+==11340==    at 0x4C2F1CB: strcmp (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x401276: sstring_compare (sstring.c:178)
+==11340==    by 0x4048F7: dictionary_set (dictionary.c:82)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x405219: main (test_dictionary.c:74)
+==11340==  Address 0x51fdf04 is 0 bytes after a block of size 4 alloc'd
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x400FA3: sstring_create_string (sstring.c:63)
+==11340==    by 0x404F7F: test_dico_key_val (test_dictionary.c:38)
+==11340==    by 0x405219: main (test_dictionary.c:74)
+==11340== 
+==11340== 
+==11340== HEAP SUMMARY:
+==11340==     in use at exit: 96 bytes in 3 blocks
+==11340==   total heap usage: 96 allocs, 93 frees, 1,915 bytes allocated
+==11340== 
+==11340== 32 bytes in 1 blocks are definitely lost in loss record 1 of 3
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x4029F5: value_protected_label_create (value_protected_label.c:69)
+==11340==    by 0x405195: main (test_dictionary.c:66)
+==11340== 
+==11340== 32 bytes in 1 blocks are definitely lost in loss record 2 of 3
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x4029F5: value_protected_label_create (value_protected_label.c:69)
+==11340==    by 0x402915: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x4048D4: dictionary_set (dictionary.c:78)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x40497B: dictionary_set (dictionary.c:93)
+==11340==    by 0x404F9A: test_dico_key_val (test_dictionary.c:39)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340== 
+==11340== 32 bytes in 1 blocks are definitely lost in loss record 3 of 3
+==11340==    at 0x4C2AB80: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==11340==    by 0x4029F5: value_protected_label_create (value_protected_label.c:69)
+==11340==    by 0x402915: value_protected_label_copy (value_protected_label.c:57)
+==11340==    by 0x400D3C: chunk_answer_message (chunk.c:25)
+==11340==    by 0x400DFF: chunk_copy (chunk.c:38)
+==11340==    by 0x404A09: dictionary_get_copy (dictionary.c:120)
+==11340==    by 0x404A3C: dictionary_get_copy (dictionary.c:127)
+==11340==    by 0x404A3C: dictionary_get_copy (dictionary.c:127)
+==11340==    by 0x404A3C: dictionary_get_copy (dictionary.c:127)
+==11340==    by 0x404FE0: test_dico_key_val (test_dictionary.c:42)
+==11340==    by 0x4051A9: main (test_dictionary.c:66)
+==11340== 
+==11340== LEAK SUMMARY:
+==11340==    definitely lost: 96 bytes in 3 blocks
+==11340==    indirectly lost: 0 bytes in 0 blocks
+==11340==      possibly lost: 0 bytes in 0 blocks
+==11340==    still reachable: 0 bytes in 0 blocks
+==11340==         suppressed: 0 bytes in 0 blocks
+==11340== 
+==11340== For counts of detected and suppressed errors, rerun with: -v
+==11340== ERROR SUMMARY: 61 errors from 29 contexts (suppressed: 0 from 0)

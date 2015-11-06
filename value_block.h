@@ -62,5 +62,6 @@ basic_type value_block_print(chunk const toprint, va_list va);
  */
 extern linked_list_chunk value_block_get_list ( chunk const vb ) ;
 
+extern const message_action value_block_reactions [];
 
 # endif

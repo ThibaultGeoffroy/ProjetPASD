@@ -177,15 +177,17 @@ void dictionary_destroy ( dictionary dic )  {
  */
 void dictionary_print ( dictionary dic ,
 			       FILE * f )  {
-	if(dic != NULL){
-		dictionary_print(dic->filsgauche, f);
-		fprintf(f , "\"");
-		sstring_print(dic->key, f);
-		fprintf(f, "\" => " );
-		chunk_print(dic->val, f);
-		fprintf(f, "\n" );
-		dictionary_print(dic->filsdroit, f);
-	}
+  if(dic != NULL){
+    dictionary_print(dic->filsgauche, f);
+    if(dic->key != NULL){
+      fprintf(f , "\"");
+      sstring_print(dic->key, f);
+      fprintf(f, "\" => " );
+      chunk_print(dic->val, f);
+      fprintf(f, "\n" );
+    }
+    dictionary_print(dic->filsdroit, f);
+  }
 }
 
 
