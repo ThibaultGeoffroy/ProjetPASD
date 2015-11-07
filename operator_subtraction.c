@@ -34,7 +34,8 @@
  */
 
 
-OPERATOR_DECLARE ( subtraction ) 
+ OPERATOR_NUMBER (subtraction , -)
+ OPERATOR_BASIC_FULL ( subtraction , "-")
 
 
 

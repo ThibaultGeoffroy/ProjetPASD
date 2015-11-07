@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ==11328== Memcheck, a memory error detector
 ==11328== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
 ==11328== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
@@ -77,3 +78,122 @@
 ==11328== 
 ==11328== For counts of detected and suppressed errors, rerun with: -v
 ==11328== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 0 from 0)
+=======
+==24004== Memcheck, a memory error detector
+==24004== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==24004== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==24004== Command: ./test_linked_list_chunk
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001927: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==24004==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==24004==  Address 0x100a7e390 is 0 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100006206: main (test_linked_list_chunk.c:56)
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001932: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==24004==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==24004==  Address 0x100a7e398 is 8 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x100006330: main (test_linked_list_chunk.c:67)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100006206: main (test_linked_list_chunk.c:56)
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001927: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==24004==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==24004==  Address 0x100a7ec20 is 0 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100001E40: linked_list_chunk_copy (linked_list_chunk.c:237)
+==24004==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001932: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==24004==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==24004==  Address 0x100a7ec28 is 8 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x10000640B: main (test_linked_list_chunk.c:80)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100001E40: linked_list_chunk_copy (linked_list_chunk.c:237)
+==24004==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001927: linked_list_chunk_destroy (linked_list_chunk.c:84)
+==24004==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==24004==  Address 0x100a90570 is 0 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100001E40: linked_list_chunk_copy (linked_list_chunk.c:237)
+==24004==    by 0x10000635E: main (test_linked_list_chunk.c:70)
+==24004== 
+==24004== Invalid write of size 8
+==24004==    at 0x100001932: linked_list_chunk_destroy (linked_list_chunk.c:85)
+==24004==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==24004==  Address 0x100a90578 is 8 bytes inside a block of size 16 free'd
+==24004==    at 0x1000162F7: free (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001922: linked_list_chunk_destroy (linked_list_chunk.c:83)
+==24004==    by 0x10000645C: main (test_linked_list_chunk.c:85)
+==24004==  Block was alloc'd at
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001866: linked_list_chunk_create (linked_list_chunk.c:59)
+==24004==    by 0x100001E40: linked_list_chunk_copy (linked_list_chunk.c:237)
+==24004==    by 0x10000635E: main (test_linked_list_chunk.c:70)
+==24004== 
+==24004== 
+==24004== HEAP SUMMARY:
+==24004==     in use at exit: 88,036 bytes in 200 blocks
+==24004==   total heap usage: 320 allocs, 120 frees, 94,940 bytes allocated
+==24004== 
+==24004== 264 bytes in 11 blocks are indirectly lost in loss record 46 of 62
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001BFA: linked_list_chunk_add_back (linked_list_chunk.c:161)
+==24004==    by 0x100001E81: linked_list_chunk_copy (linked_list_chunk.c:240)
+==24004==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==24004== 
+==24004== 288 (24 direct, 264 indirect) bytes in 1 blocks are definitely lost in loss record 47 of 62
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x100001BFA: linked_list_chunk_add_back (linked_list_chunk.c:161)
+==24004==    by 0x100001E81: linked_list_chunk_copy (linked_list_chunk.c:240)
+==24004==    by 0x100006323: main (test_linked_list_chunk.c:66)
+==24004== 
+==24004== 65,536 bytes in 1 blocks are still reachable in loss record 62 of 62
+==24004==    at 0x100015EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==24004==    by 0x1001EF789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==24004==    by 0x1002047DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==24004==    by 0x10021F115: __v2printf (in /usr/lib/system/libsystem_c.dylib)
+==24004==    by 0x1001F501D: vfprintf_l (in /usr/lib/system/libsystem_c.dylib)
+==24004==    by 0x1001ED51F: fprintf (in /usr/lib/system/libsystem_c.dylib)
+==24004==    by 0x10000649A: test_llc_ch (test_linked_list_chunk.c:34)
+==24004==    by 0x10000626C: main (test_linked_list_chunk.c:59)
+==24004== 
+==24004== LEAK SUMMARY:
+==24004==    definitely lost: 24 bytes in 1 blocks
+==24004==    indirectly lost: 264 bytes in 11 blocks
+==24004==      possibly lost: 0 bytes in 0 blocks
+==24004==    still reachable: 65,536 bytes in 1 blocks
+==24004==         suppressed: 22,212 bytes in 187 blocks
+==24004== 
+==24004== For counts of detected and suppressed errors, rerun with: -v
+==24004== ERROR SUMMARY: 7 errors from 7 contexts (suppressed: 22 from 22)
+>>>>>>> Stashed changes
