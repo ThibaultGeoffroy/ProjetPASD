@@ -27,13 +27,27 @@
 
 
 VALUE_DECLARE ( sstring , sstring) 
-
+/*!
+ * Get the value from a value_sstring.
+ * The value is a basic_type_pointer, pointing to a sstring_struct.
+ */
 basic_type value_sstring_get_value(chunk const ToGet, va_list va);
 
+/*!
+ * Copy the value_sstring, return his value.
+ * The returned value is a basic_type_pointer, pointing to a sstring_struct.
+ */
 basic_type value_sstring_copy(chunk const origin, va_list va);
 
+/*!
+ * Destroy the sstring contained by the state of the chunk, then the chunk itself.
+ */
 basic_type value_sstring_destroy(chunk const todestroy, va_list va);
 
+/*!
+ * Print the value of the chunk state containging an sstring.
+ * Printing is done on a specified output via the va_list
+ */
 basic_type value_sstring_print(chunk const toprint, va_list va);
 
 

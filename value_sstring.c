@@ -35,6 +35,7 @@ const message_action value_sstring_reactions [] = {
   { NULL, NULL }
 };
 
+
 typedef struct {
   basic_type basic_type;
 } value_sstring_state;

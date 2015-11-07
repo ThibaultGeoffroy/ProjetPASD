@@ -16,6 +16,7 @@
 
 #define MAXADDEDLENGTH 11
 
+
 void interprete_chunk ( chunk ch, interpretation_context ic ){
 
   if( chunk_is_value(ch) ){
@@ -25,14 +26,14 @@ void interprete_chunk ( chunk ch, interpretation_context ic ){
       
       linked_list_chunk_add_front(ic->stack, ch);
     }
-
-  }else{
-
-    if( chunk_is_operator(ch) ){
-      chunk_answer_message(ch, "operator_evaluate");
-    }
+    
+  }
+  if( chunk_is_operator(ch) ){
+    chunk_answer_message(ch, "operator_evaluate", ic);
   }
 }
+
+
 
 void interprete_chunk_list (linked_list_chunk ch, interpretation_context ic ){
 
@@ -45,22 +46,20 @@ void interprete ( FILE * f, bool do_trace ){
   interpretation_context ic = malloc(sizeof(struct interpretation_context_struct));
   ic->stack = linked_list_chunk_create();
   ic->dic = dictionary_create();
-  while( !( ( (*(basic_type*)ToInterprete->state).type == t_error)  && 
-	    ( (*(basic_type*)ToInterprete->state).value.val_long_long_int  == 2 ) ) ) {
+  while( chunk_is_value(ToInterprete) || chunk_is_operator(ToInterprete) ){
     
-    if( (*(basic_type*)ToInterprete->state).type == t_pointer ){
+      if(chunk_is_value(ToInterprete)){
       
-      if( (value_block_reactions) == (ToInterprete->reactions)){
-        basic_type tocast = *(basic_type*)ToInterprete->state;
-        interprete_chunk_list(( (linked_list_chunk)tocast.value.val_pointer ), ic); 
-      }else{
-	interprete_chunk(ToInterprete, ic); 
+	if( (*(basic_type*)ToInterprete->state).type == t_pointer ){
+	  
+	  if( (value_block_reactions) == (ToInterprete->reactions)){
+	    basic_type tocast = *(basic_type*)ToInterprete->state;
+	    interprete_chunk_list(( (linked_list_chunk)tocast.value.val_pointer ), ic); 
+	  }
+	}
       }
-      
-    }else{
       interprete_chunk(ToInterprete, ic);
-    }
-    
+
     // GESTION TRACE
 
     if(do_trace){

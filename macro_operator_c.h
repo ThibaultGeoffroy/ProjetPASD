@@ -73,16 +73,16 @@
   chunk ch2 = linked_list_chunk_pop_front(ic->stack); \
   chunk ch3; \
   if(value_is_int(ch1) && value_is_int(ch2) ){ \
-    ch3 = value_int_create(basic_type_get_long_long_int(value_get_value(ch1)) + basic_type_get_long_long_int(value_get_value(ch2)));  \
+    ch3 = value_int_create(basic_type_get_long_long_int(value_get_value(ch1)) op basic_type_get_long_long_int(value_get_value(ch2)));  \
   } \
   else if(value_is_double(ch1) && value_is_double(ch2)){ \
-    ch3 = value_double_create(basic_type_get_long_double(value_get_value(ch1)) + basic_type_get_long_double(value_get_value(ch2))); \
+    ch3 = value_double_create(basic_type_get_long_double(value_get_value(ch1)) op basic_type_get_long_double(value_get_value(ch2))); \
   } \
   else if(value_is_double(ch1) && value_is_int(ch2)){ \
-    ch3 = value_double_create(basic_type_get_long_double(value_get_value(ch1)) + basic_type_get_long_long_int(value_get_value(ch2))); \
+    ch3 = value_double_create(basic_type_get_long_double(value_get_value(ch1)) op basic_type_get_long_long_int(value_get_value(ch2))); \
   } \
   else if(value_is_int(ch1) && value_is_double(ch2)){ \
-    ch3 = value_double_create(basic_type_get_long_long_int(value_get_value(ch1)) + basic_type_get_long_double(value_get_value(ch2))); \
+    ch3 = value_double_create(basic_type_get_long_long_int(value_get_value(ch1)) op basic_type_get_long_double(value_get_value(ch2))); \
   } \
   else{ \
     return basic_type_error ;    \

@@ -33,8 +33,8 @@
  * \copyright GNU Public License.
  */
 
- OPERATOR_NUMBER (division , %)
- OPERATOR_BASIC_FULL ( division , "%")
+ OPERATOR_NUMBER (division , /)
+ OPERATOR_BASIC_FULL ( division , "/")
 
 
 
