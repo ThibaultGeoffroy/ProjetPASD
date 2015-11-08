@@ -38,7 +38,9 @@ true
 
 static basic_type operator_print_stack_evaluate ( chunk const ch ,	va_list va ) {	
    interpretation_context ic = va_arg( va , interpretation_context);
-   linked_list_chunk_print(ic->stack, stdout);
+   printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+   linked_list_chunk_print(ic->stack, stdout);    
+   printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");  
    return basic_type_void;
 }
 OPERATOR_BASIC_FULL(print_stack , "print_stack")

@@ -11,6 +11,9 @@
 # include "value_block.h"
 # include "dictionary.h"
 # include "chunk.h"
+# include "operator_print.h"
+# include "operator_print_stack.h"
+# include "operator_print_dictionary.h"
 # include "operator_addition.h"
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
@@ -39,8 +42,8 @@ void interprete_chunk ( chunk ch, interpretation_context ic ){
 
 
   if( chunk_is_operator(ch) ){
+
     chunk_answer_message(ch, "operator_evaluate", ic);
-    
     if(ic->do_trace){
       printf("==**== reading: ");
       chunk_print(ch, stdout);
@@ -50,7 +53,7 @@ void interprete_chunk ( chunk ch, interpretation_context ic ){
       printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
     }
     return;
-  }   
+    }  
 }
 
 

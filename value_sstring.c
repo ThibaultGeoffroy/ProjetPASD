@@ -42,7 +42,9 @@ typedef struct {
 
 basic_type value_sstring_print(chunk const toprint, va_list va){
   FILE * f = va_arg ( va , FILE * ) ;
+  fprintf(f ,"\"");
   sstring_print(basic_type_get_pointer( *(basic_type*) (toprint->state) ),f);
+  fprintf(f ,"\"");
   return basic_type_void; 
 }
 

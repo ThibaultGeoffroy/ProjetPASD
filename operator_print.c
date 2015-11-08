@@ -36,6 +36,7 @@
     }
     if(ch1 != NULL){
     	chunk_print(ch1, stdout);
+	fprintf(stdout,"\n");
     	chunk_destroy(ch1);
     	return basic_type_void;
     }
