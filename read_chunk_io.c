@@ -130,7 +130,7 @@ chunk read_chunk_io ( FILE * f )  {
 	int c;
 	char * buff;
 	bool overflow = false;
-	bool is_label = true;
+	//bool is_label = true;
 	char * s = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
 	for(int j = 0; j<50;j++){s[j]=0;}
 	sstring ss;
@@ -215,7 +215,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//value true
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
@@ -246,7 +246,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//value false
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
@@ -378,7 +378,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator nop
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
@@ -409,7 +409,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator def
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
@@ -748,7 +748,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator if / operator if_else
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					overflow = true;
 					continue;
@@ -793,7 +793,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator while
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					overflow = true;
 					continue;
@@ -824,7 +824,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator copy
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					overflow = true;
 					continue;
@@ -855,10 +855,10 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator start_trace / operator stop_trace
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 					if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-						is_label = false;
+					  //	is_label = false;
 					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						overflow = true;
 						continue;
@@ -904,7 +904,7 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator pop / operator print / operator print_stack / operator print_dictionary
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
 				if((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c))
-					is_label = false;
+				  //	is_label = false;
 				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					overflow = true;
 					continue;
