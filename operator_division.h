@@ -26,6 +26,4 @@
 
 OPERATOR_DECLARE ( division ) 
 
-
-
 # endif

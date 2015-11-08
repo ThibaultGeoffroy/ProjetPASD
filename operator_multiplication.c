@@ -33,6 +33,7 @@
  * \copyright GNU Public License.
  */
 
+
  OPERATOR_NUMBER (multiplication , *)
  OPERATOR_BASIC_FULL ( multiplication , "*")
 

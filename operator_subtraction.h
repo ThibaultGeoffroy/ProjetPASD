@@ -26,6 +26,4 @@
 
 OPERATOR_DECLARE ( subtraction ) 
 
-
-
 # endif

@@ -22,9 +22,7 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( addition ) 
+OPERATOR_DECLARE( addition )
 
 //OPERATOR_FULL(addition)
 # endif

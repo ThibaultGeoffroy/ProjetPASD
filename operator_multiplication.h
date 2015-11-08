@@ -26,5 +26,4 @@
 
 OPERATOR_DECLARE ( multiplication ) 
 
-
 # endif

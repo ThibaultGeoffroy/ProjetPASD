@@ -14,12 +14,12 @@
     chunk res = ( chunk ) malloc( sizeof(struct chunk_struct) );	\
     res -> state = malloc ( sizeof (value_ ## type_name ## _state) );	\
     res->reactions = value_ ## type_name ## _reactions;			\
-    ;			\
-	   *(basic_type*)(res->state) = basic_type_ ## type_name (val);						             \
+      ;									\
+      *(basic_type*)(res->state) = basic_type_ ## type_name (val);	\
 	return res;							\
-  }								\
+  }									\
   bool value_is_ ## type_name ( chunk const ch ) {			\
-    return ch->reactions == value_ ## type_name ## _reactions ;							\
+    return ch->reactions == value_ ## type_name ## _reactions ;		\
   }
 
 

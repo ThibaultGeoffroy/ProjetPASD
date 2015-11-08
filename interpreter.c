@@ -11,7 +11,7 @@
 # include "value_block.h"
 # include "dictionary.h"
 # include "chunk.h"
-
+# include "operator_addition.h"
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
 #define MAXADDEDLENGTH 11
@@ -26,19 +26,54 @@ void interprete_chunk ( chunk ch, interpretation_context ic ){
       
       linked_list_chunk_add_front(ic->stack, ch);
     }
-    
+    if(ic->do_trace){
+      printf("==**== reading: ");
+      chunk_print(ch, stdout);
+      printf(" (value)\n"); 
+      printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+      linked_list_chunk_print( ic->stack , stdout);
+      printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");      
+    }
+    return;
   }
+
+
   if( chunk_is_operator(ch) ){
     chunk_answer_message(ch, "operator_evaluate", ic);
-  }
+    
+    if(ic->do_trace){
+      printf("==**== reading: ");
+      chunk_print(ch, stdout);
+      printf(" (operator)\n"); 
+      printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+      linked_list_chunk_print( ic->stack , stdout);
+      printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
+    }
+    return;
+  }   
 }
 
 
 
 void interprete_chunk_list (linked_list_chunk ch, interpretation_context ic ){
-
-
+  chunk chunk_l = (chunk)malloc(sizeof(struct chunk_struct));
+  
+  while(!linked_list_chunk_is_empty(ch)){
+    chunk_l = linked_list_chunk_pop_front(ch); 
+    if(chunk_is_value(chunk_l)){
+      
+      if( (*(basic_type*)chunk_l->state).type == t_pointer ){
+	
+	if( (value_block_reactions) == (chunk_l->reactions)){
+	  basic_type tocast = *(basic_type*)chunk_l->state;
+	  interprete_chunk_list(( (linked_list_chunk)tocast.value.val_pointer ), ic); 
+	}
+      }
+    }
+    interprete_chunk(chunk_l, ic);
+  }
 }
+
 
 void interprete ( FILE * f, bool do_trace ){
   chunk ToInterprete = (chunk)malloc(sizeof(struct chunk_struct));
@@ -46,57 +81,35 @@ void interprete ( FILE * f, bool do_trace ){
   interpretation_context ic = malloc(sizeof(struct interpretation_context_struct));
   ic->stack = linked_list_chunk_create();
   ic->dic = dictionary_create();
+  ic->do_trace = do_trace;
   while( chunk_is_value(ToInterprete) || chunk_is_operator(ToInterprete) ){
-    
+    /*  
       if(chunk_is_value(ToInterprete)){
       
 	if( (*(basic_type*)ToInterprete->state).type == t_pointer ){
 	  
 	  if( (value_block_reactions) == (ToInterprete->reactions)){
 	    basic_type tocast = *(basic_type*)ToInterprete->state;
+
+	     if(ic->do_trace){
+	       printf("==**== reading: ");
+	       chunk_print(ToInterprete, stdout);
+	       printf(" (value)\n"); 
+	     }
+
 	    interprete_chunk_list(( (linked_list_chunk)tocast.value.val_pointer ), ic); 
+    
+	    if(ic->do_trace){
+	      printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+	      linked_list_chunk_print( ic->stack , stdout);
+	      printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
+	    }
+   
 	  }
 	}
       }
-      interprete_chunk(ToInterprete, ic);
-
-    // GESTION TRACE
-
-    if(do_trace){
-      basic_type toprint = *(basic_type*)ToInterprete->state;
-      if(chunk_is_value(ToInterprete)){
-	if( toprint.type == t_pointer ){
-	  sstring toprint_s = (sstring)((toprint.value).val_pointer);
-	    printf("==**== reading: \\");
-	    sstring_print(toprint_s, stdout);
-	    printf(" (value)\n");
-	}
-      
-	if( toprint.type == t_true ){
-	  printf("==**== reading: true (value)\n");
-	} 
-	if( toprint.type == t_false ){
-	  printf("==**== reading: false (value)\n");
-	}
-	if( toprint.type == t_long_double ){
-	  printf("==**== reading: %LF (value)\n", toprint.value.val_long_double);
-	}
-	if( toprint.type == t_long_long_int ){
-	  printf("==**== reading: %lld (value)\n", toprint.value.val_long_long_int);
-	}
-      }else{  
-	if(chunk_is_operator(ToInterprete)){
-	  printf("==**== reading: (operator)\n" );
-	}
-      }
-      
-      printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
-      linked_list_chunk_print( ic->stack , stdout);
-      printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
-    }
-
-    // FIN GESTION TRACE
-
+    */
+    interprete_chunk(ToInterprete, ic);
     ToInterprete = read_chunk_io(f);
     if(ToInterprete == NULL){
       if(do_trace){
@@ -111,9 +124,6 @@ void interprete ( FILE * f, bool do_trace ){
       return ;
     }
   }
-  chunk_destroy(ToInterprete);
-  linked_list_chunk_destroy(ic->stack);
-  dictionary_destroy(ic->dic);
 }
 
 
