@@ -3,7 +3,9 @@
 # include <assert.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include "basic_type.h"
 # include "read_chunk_io.h"
+# include "linked_list_chunk.h"
 # include "value.h"
 # include "value_boolean.h"
 # include "value_sstring.h"
@@ -85,6 +87,18 @@
  * \pre \c f is not \c NULL (assert-ed)
  * \return chunk read (should be a \c value or an \c operator) or a \c value_error if reading fail.
  */
+void overlength(int * i, char ** s1, char ** s2, char ** s3){
+	*(i) += TOKEN_KEYWORD_MAX_LENGTH;
+	strcpy(*(s3), *(s2));
+	free(*(s2));
+	*(s2) = malloc(*(i) * sizeof(char));
+	strcpy(*(s2), *(s3));
+	free(*(s3));
+	*(s3) = malloc(*(i) * sizeof(char));
+	strcpy(*(s2)+*(i)-TOKEN_KEYWORD_MAX_LENGTH, *(s1));
+	free(*(s1));
+	*(s1) = malloc(TOKEN_KEYWORD_MAX_LENGTH);
+}
 
 chunk read_chunk_io ( FILE * f )  {
 
@@ -127,10 +141,10 @@ chunk read_chunk_io ( FILE * f )  {
 	int c;
 	char * buff;
 	bool overflow = false;
+	int longssize = TOKEN_KEYWORD_MAX_LENGTH;
 	char * s = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
-	char * longs = NULL;
-	char * save = NULL;
-	int taillelongs = TOKEN_KEYWORD_MAX_LENGTH;
+	char * longs = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
+	char * save = malloc(TOKEN_KEYWORD_MAX_LENGTH * sizeof(char));
 
 	while((c = fgetc(f)) != EOF){
 		// Vraiment vérifier les interactions avec les espaces, fins de ligne.
@@ -141,93 +155,141 @@ chunk read_chunk_io ( FILE * f )  {
 			//On met le premier chiffre
 			bool d = false;
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
-					strcpy(longs,s);
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
+					overlength(&longssize, &s, &longs, &save);
+					overflow = true;
 				}
 				s[i] = c;
 				if ('0'<=c && c<='9'){
 				}else if (c == '.'){
 					if (d)
 						//deux points, erreur
-						return NULL;
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
 					else
 						d = true;
+				}else if (c == '}'){
+					if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+						while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					}
+					ungetc(' ',f);
+					ungetc('}',f);
+					break;
 				}else{
-					return NULL;
-					//erreur
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				}
 			}
-			if (d)
-				return value_double_create(atof(s));
-			else
-				return value_int_create(atoi(s));
+			if (d){
+				if (overflow)
+					return value_double_create(atoi(longs));
+				else
+					return value_double_create(atof(s));
+			}else{
+				if (overflow)
+					return value_int_create(atoi(longs));
+				else
+					return value_int_create(atoi(s));
+			}
 		}else if (c == '\\'){
 			//value protected_label
-			bool error = false;
 			if (((c = fgetc(f)) <= 'z' && 'a'<= c) || (c <= 'Z' && 'A'<= c)){
 				s[0] = c;
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 					if ((c!='_') && !('0'<=c && c<='9') && !(c <= 'z' && 'a'<= c) && !(c <= 'Z' && 'A'<= c)){
-						error = true;
+						if(c=='}'){
+							if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+								while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+								return value_error_create(VALUE_ERROR_IO_SYNTAX);
+							}
+							ungetc(' ',f);
+							ungetc('}',f);
+							break;
+						}
+						while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
 					}
 				}
-				if(error){
-				}	//return value_error
-				return value_protected_label_create(sstring_create_string(s));
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			}else{
-				//return value_error
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			}
 			for (int i = 1; i < OPERATOR_CREATOR_LIST_SIZE; ++i){
 				if (0 == strcmp(s, operator_creator_list[i].keyword)){
-					//return value_error
-					return NULL;
+					return value_error_create(VALUE_ERROR_IO_LABEL_IS_KEYWORD);
 				}
 			}
-			return NULL;
 			//return chunk correspondant
+			return value_protected_label_create(sstring_create_string(s));
 		}else if (c == 't'){
 			//value true
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "true";
 			if(0 == strcmp(s,buff))
 				//return chunk correspondant
 				return value_boolean_create(true);
-			else
-				return NULL;
+			else{
+				buff = "true}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return value_boolean_create(true);
+				}else{
+				//if(){
+
+				//}else
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+				}
+			}
 		}else if (c == 'f'){
 			//value false
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "false";
 			if(0 == strcmp(s,buff))
 				return value_boolean_create(false);
 				//return chunk correspondant
-			else
-				return NULL;
+			else{
+				buff = "true}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return value_boolean_create(true);
+				}else{
+				//if(){
+
+				//}else
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
-			/*}else if (c == '\"'){
+				}
+			}
+		}else if (c == '\"'){
 			//value string
 			bool backslash = false;
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
-					continue;
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
+					overlength(&longssize, &s, &longs, &save);
 					overflow = true;
 				}
 				s[i] = c;
@@ -235,224 +297,348 @@ chunk read_chunk_io ( FILE * f )  {
 					backslash = true;
 				if (c == '\"'){
 					if(!backslash){
-						for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-						}
-						buff = "";
-						if(0 == strcmp(s,buff))
+						if((c = fgetc(f)) == EOF || c == ' ' || c == '\n'){
 							//return chunk correspondant
-							return value_sstring_create(sstring_create_string(s));
-						else
-							return NULL;
+							if (overflow)
+								return value_sstring_create(sstring_create_string(longs));
+							else
+								return value_sstring_create(sstring_create_string(s));
+						}else{
+							if(c=='}'){
+								if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+									while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+									return value_error_create(VALUE_ERROR_IO_SYNTAX);
+								}
+								ungetc(' ',f);
+								ungetc('}',f);
+								if (overflow)
+									return value_sstring_create(sstring_create_string(longs));
+								else
+									return value_sstring_create(sstring_create_string(s));
+							}
+							while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+							return value_error_create(VALUE_ERROR_IO_SYNTAX);
+						}
 							//value_error : input cannot form a legal chunk
 					}
 				}
-				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-						s[i] = c;
-					}
-					buff = "";
-					if(0 == strcmp(s,buff))
-						//return chunk correspondant
-						return value_sstring_create(sstring_create_string(s));
-					else
-						return NULL;
-						//value_error : input cannot form a legal chunk
-				}
+				backslash = false;
 			}
-			return NULL;
-			//return value_error : input cannot form a legal chunk*/
+			return value_error_create(VALUE_ERROR_IO_MALFORMED_STRING);
+			//return value_error : input cannot form a legal chunk
 		}else if (c == '{'){
-			/*
 			//value block
-			int nb_brackets_left_to_close = 0;
-			while((c = fgetc(f)) != EOF){
-				if(c == '{'){
-					//ajoute le {
-					nb_brackets_left_to_close++;
-				}
-				if(c == '}'){
-					//ajoute le }
-					if (0 == nb_brackets_left_to_close){
-						for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-							s[i] = c;
-						}
-						buff = "";
-						if(0 == strcmp(s,buff))
-							return NULL;
-							//return chunk correspondant
-					}else{
-						nb_brackets_left_to_close--;
+			linked_list_chunk lls;
+			chunk ch;
+			lls = linked_list_chunk_create();
+			while(true){
+				ch = read_chunk_io(f);
+				if( ((chunk_is_value(ch))) && (value_is_error(ch))){
+				 
+					switch(basic_type_get_long_long_int(value_get_value(ch))){
+					case 2 :
+						return value_error_create(VALUE_ERROR_IO_UNFINISHED_BLOCK);
+					break;
+					case 10 :
+						return value_block_create(lls);
+					break;
+					default:
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
 					}
 				}else{
-					return NULL;
-					//ajoute le char
+					linked_list_chunk_add_back(lls, ch);
 				}
 			}
-			*/
-			//return value_error : input cannot form a legal chunk
+		}else if (c == '}'){
+			//Utilisé pour terminer l'appel récursif de read_chunk_io pour remplir un block.
+			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+				while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			}
+			return value_error_create(VALUE_ERROR_END_OF_BLOCK);
 		}else if (c == 'n'){
 			//operator nop
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "nop";
 			if(0 == strcmp(s,buff))
 				return operator_nop_create();
 				//return chunk correspondant
-			else
-				return NULL;
-				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+			else{
+				buff = "nop}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_nop_create();
+				}else{
+					//if(){
+
+					//}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+				}
+			}
 		}else if (c == 'd'){
 			//operator def
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "def";
 			if(0 == strcmp(s,buff))
 				return operator_def_create();
 				//return chunk correspondant
-			else
-				return NULL;
-				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+			else{
+				buff = "def}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_def_create();
+				}else{
+					//if(){
+
+					//}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+				}
+			}
 		}else if (c == '+'){
 			//operator +
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
-				buff = "+";
-				if(0 == strcmp(s,buff))
-					//return chunk correspondant
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			buff = "+";
+			if(0 == strcmp(s,buff))
+				//return chunk correspondant
+				return operator_addition_create();
+			else{
+				buff = "+}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
 					return operator_addition_create();
-				else
-					return NULL;
-					//value_error : input cannot form a legal chunk
+				}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			}
 		}else if (c == '-'){
 			//int / double / operator -
-			if((c = fgetc(f)) == EOF || c == ' '||c =='\n'){
+			if((c = fgetc(f)) == EOF || c == ' '|| c =='\n' || c == '{'){
+				if(c == '{'){
+					if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+						while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					}
+					ungetc(' ',f);
+					ungetc('}',f);
+				}
 				//return operator -
 				return operator_subtraction_create();
 			}else{
 				if ('0' <= c && c <= '9'){
 					s[1] = c;
 					bool d = false;
-					for (int i = 2;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-						s[i] = c;
+					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+						if(i>=TOKEN_KEYWORD_MAX_LENGTH){
+							overlength(&longssize, &s, &longs, &save);
+							overflow = true;
+						}
+						s[i+1] = c;
 						if ('0'<=c && c<='9'){
 						}else if (c == '.'){
 							if (d)
 								//deux points, erreur
-								return NULL;
+								return value_error_create(VALUE_ERROR_IO_SYNTAX);
 							else
 								d = true;
-						}else
-							return NULL;
-						//erreur
+						}else if (c == '}'){
+							if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+								while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+								return value_error_create(VALUE_ERROR_IO_SYNTAX);
+							}
+							ungetc(' ',f);
+							ungetc('}',f);
+							break;
+						}else{
+							return value_error_create(VALUE_ERROR_IO_SYNTAX);
+						}
 					}
-					if (d)
-						return value_double_create(atof(s));
-					else
-						return value_int_create(atoi(s));
+					if (d){
+						if (overflow)
+							return value_double_create(atoi(longs));
+						else
+							return value_double_create(atof(s));
+					}else{
+						if (overflow)
+							return value_int_create(atoi(longs));
+						else
+							return value_int_create(atoi(s));
+					}
 				}else{
 					while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
-					//return value_error : input cannot form a legal chunk
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				}
 			}
 		}else if (c == '/'){
 			//operator /
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
-				buff = "/";
-				if(0 == strcmp(s,buff))
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			buff = "/";
+			if(0 == strcmp(s,buff))
+				return operator_division_create();
+				//return chunk correspondant
+			else{
+				buff = "/}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
 					return operator_division_create();
-					//return chunk correspondant
-				else
-					return NULL;
-					//value_error : input cannot form a legal chunk
+				}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			}
 		}else if (c == '*'){
 			//operator *
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
-				buff = "*";
-				if(0 == strcmp(s,buff))
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			buff = "*";
+			if(0 == strcmp(s,buff))
+				return operator_multiplication_create();
+				//return chunk correspondant
+			else{
+				buff = "*}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
 					return operator_multiplication_create();
-					//return chunk correspondant
-				else
-					return NULL;
-					//value_error : input cannot form a legal chunk
+				}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			}
 		}else if (c == '%'){
 			//operator %
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "%";
 			if(0 == strcmp(s,buff))
 				return operator_remainder_create();
 				//return chunk correspondant
-			else
-				return NULL;
-				//value_error : input cannot form a legal chunk
+			else{
+				buff = "%}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_remainder_create();
+				}else
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+			}
 		}else if (c == '<'){
 			//operator < / operator <=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+				if (c == '}'){
+					if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+						while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					}
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_less_create();
+				}
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "<=";
 				if(0 == strcmp(s,buff))
 					return operator_less_equal_create();
 					//return operator <=
-				else
-					return NULL;
-					//return value_error : input cannot form a legal chunk
+				else{
+					buff = "<=}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_less_equal_create();
+					}else
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				}
 			}
 			//return operator <
 			return operator_less_create();
 		}else if (c == '!'){
 			//operator ! / operator !=
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+				if (c == '}'){
+					if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+						while((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){}
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+					}
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_not_create();
+				}
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "!=";
 				if(0 == strcmp(s,buff))
 					return operator_different_create();
 					//return operator !=
-				else
-					return NULL;
-					//return value_error : input cannot form a legal chunk
+				else{
+					buff = "!=}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_different_create();
+					}else
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				}
 			}
 			return operator_not_create();
 			//return operator !
@@ -460,174 +646,299 @@ chunk read_chunk_io ( FILE * f )  {
 			//operator ==
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "==";
 				if(0 == strcmp(s,buff))
 					return operator_equal_create();
 					//return operator ==
-				else
-					return NULL;
-					//return value_error : input cannot form a legal chunk
+				else{
+					buff = "==}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_equal_create();
+					}else
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				}
 			}
+			return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			//return value_error : input cannot form a legal chunk
 		}else if (c == '&'){
 			//operator &&
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "&&";
 				if(0 == strcmp(s,buff))
 					return operator_and_create();
 					//return operator &&
-				else
-					return NULL;
-					//return value_error : input cannot form a legal chunk
+				else{
+					buff = "&&}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_and_create();
+					}else
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				}
 			}
+			return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			//return value_error : input cannot form a legal chunk
 		}else if (c == '|'){
 			//operator ||
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "||";
 				if(0 == strcmp(s,buff))
 					return operator_or_create();
 					//return operator ||
-				else
-					return NULL;
-					//return value_error : input cannot form a legal chunk
+				else{
+					buff = "||}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_or_create();
+					}else
+						return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				}
 			}
+			return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			//return value_error : input cannot form a legal chunk
 		}else if (c == 'i'){
 			//operator if / operator if_else
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "if";
 				if(0 == strcmp(s,buff))
 					return operator_if_create();
 					//return operator if
 				else{
-					buff = "if_else";
-					if (0 == strcmp(s,buff))
-						return operator_if_else_create();
-						//return operator if_else
-					else
-						return NULL;
-						//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+					buff = "if}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_if_create();
+					}else{
+						buff = "if_else";
+						if (0 == strcmp(s,buff))
+							return operator_if_else_create();
+							//return operator if_else
+						else{
+							buff = "if_else}";
+							if(0 == strcmp(s,buff)){
+								ungetc(' ',f);
+								ungetc('}',f);
+								return operator_if_else_create();
+							}else{
+							//if(){
+
+							//}else
+							return value_error_create(VALUE_ERROR_IO_SYNTAX);
+							//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+							}
+						}
+					}
 				}
 			}
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
 		}else if (c == 'w'){
 			//operator while
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "while";
 			if(0 == strcmp(s,buff))
 				return operator_while_create();
 				//return chunk correspondant
-			else
-				return NULL;
+			else{
+				buff = "while}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_while_create();
+				}else{
+				//if(){
+
+				//}else
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+				}
+			}
 		}else if (c == 'c'){
 			//operator copy
 			for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-				if(i>=50){
+				if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 					continue;
 					overflow = true;
 				}
 				s[i] = c;
 			}
+			if(overflow)
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 			buff = "copy";
 			if(0 == strcmp(s,buff))
 				return operator_copy_create();
 				//return chunk correspondant
-			else
-				return NULL;
+			else{
+				buff = "copy}";
+				if(0 == strcmp(s,buff)){
+					ungetc(' ',f);
+					ungetc('}',f);
+					return operator_copy_create();
+				}else{
+				//if(){
+
+				//}else
+				return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
-		}else if (c == 's'){
-				//operator start_trace / operator stop_trace
-				if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
-					for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-						if(i>=50){
-							continue;
-							overflow = true;
-						}
-						s[i] = c;
-					}
-					buff = "start_trace";
-					if(0 == strcmp(s,buff))
-						return operator_start_trace_create();
-						//return operator start_trace
-					else{
-						buff = "stop_trace";
-						if (0 == strcmp(s,buff))
-							return operator_stop_trace_create();
-							//return operator stop_trace
-						else
-							return NULL;
-							//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
-					}
 				}
-					//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
-		}else if (c == 'p'){
-			//operator pop / operator print / operator print_stack / operator print_trace
+			}
+		}else if (c == 's'){
+			//operator start_trace / operator stop_trace
 			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
 				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
-					if(i>=50){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
 						continue;
 						overflow = true;
 					}
 					s[i] = c;
 				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
+				buff = "start_trace";
+				if(0 == strcmp(s,buff))
+					return operator_start_trace_create();
+					//return operator start_trace
+				else{
+					buff = "start_trace}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_start_trace_create();
+					}else{
+						buff = "stop_trace";
+						if (0 == strcmp(s,buff))
+							return operator_stop_trace_create();
+							//return operator stop_trace
+						else{
+							buff = "stop_trace}";
+							if(0 == strcmp(s,buff)){
+								ungetc(' ',f);
+								ungetc('}',f);
+								return operator_stop_trace_create();
+							}else{
+							//if(){
+			
+							//}else
+							return value_error_create(VALUE_ERROR_IO_SYNTAX);
+							//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+							}
+						}
+					}
+				}
+			}
+				//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+		}else if (c == 'p'){
+			//operator pop / operator print / operator print_stack / operator print_dictionary
+			if((c = fgetc(f)) != EOF && (c != ' ') && (c != '\n')){
+				for (int i = 1;(c = fgetc(f)) != EOF && (c != ' ') && (c != '\n'); ++i){
+					if(i>=TOKEN_KEYWORD_MAX_LENGTH){
+						continue;
+						overflow = true;
+					}
+					s[i] = c;
+				}
+				if(overflow)
+					return value_error_create(VALUE_ERROR_IO_SYNTAX);
 				buff = "pop";
 				if(0 == strcmp(s,buff))
 					return operator_pop_create();
 					//return operator pop
 				else{
-					buff = "print";
-					if (0 == strcmp(s,buff))
-						return operator_print_create();
-						//return operator print
-					else{
-						buff = "print_stack";
+					buff = "if}";
+					if(0 == strcmp(s,buff)){
+						ungetc(' ',f);
+						ungetc('}',f);
+						return operator_if_create();
+					}else{
+						buff = "print";
 						if (0 == strcmp(s,buff))
-							return operator_print_stack_create();
-							//return operator print_stack
+							return operator_print_create();
+							//return operator print
 						else{
-							buff = "print_trace";
-							if (0 == strcmp(s,buff))
-								//Y'a pas de print trace! A vérifier!
-								//return operator_print_trace_create();
-								return NULL;
-							else
-								return NULL;
-								//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+							buff = "print}";
+							if(0 == strcmp(s,buff)){
+								ungetc(' ',f);
+								ungetc('}',f);
+								return operator_print_create();
+							}else{
+								buff = "print_stack";
+								if (0 == strcmp(s,buff))
+									return operator_print_stack_create();
+									//return operator print_stack
+								else{
+									buff = "print_stack}";
+									if(0 == strcmp(s,buff)){
+										ungetc(' ',f);
+										ungetc('}',f);
+										return operator_print_stack_create();
+									}else{
+										buff = "print_dictionary";
+										if (0 == strcmp(s,buff))
+											return operator_print_dictionary_create();
+										else{
+											buff = "print_dictionary}";
+											if(0 == strcmp(s,buff)){
+												ungetc(' ',f);
+												ungetc('}',f);
+												return operator_print_dictionary_create();
+											}else{
+											//if(){
+							
+											//}else
+											return value_error_create(VALUE_ERROR_IO_SYNTAX);
+											//Vérifier si c'est une clef, si oui on retourne l'operateur label correspondant, sinon value_error : input cannot form a legal chunk
+											}
+										}
+									}
+								}
+							}
 						}
 					}
 				}

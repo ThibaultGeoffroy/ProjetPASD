@@ -60,7 +60,7 @@ sstring sstring_create_empty ( void )  {
 sstring sstring_create_string ( char const * const st )  {
 	sstring s = (sstring)malloc(sizeof(struct sstring_struct));
 	s->size = (unsigned int)strlen(st);
-	s->value = (char*)malloc(s->size*sizeof(char));
+	s->value = (char*)malloc(s->size*sizeof(char)+1);
 	strcpy(s->value , st);
 	//s->value = (char*)malloc(s->size*sizeof(char));
 	/*for(unsigned int i = 0; i<s->size ;  i++){

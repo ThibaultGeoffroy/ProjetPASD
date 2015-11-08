@@ -2,7 +2,8 @@
 # include <assert.h>
 
 # include "dictionary.h"
-
+# include "sstring.h"
+# include "chunk.h"
 # undef NDEBUG   // FORCE ASSERT ACTIVATION
 
 
@@ -73,34 +74,35 @@ dictionary dictionary_create ( void )  {
 void dictionary_set ( dictionary dic ,
 			     sstring key ,
 			     chunk val )  {
-	if(dic->key == NULL){
-		dic->key = sstring_copy(key);
-		dic->val = chunk_copy(val);
-		return;
-	}
-	else{
-		int compare = sstring_compare(dic->key, key);
-		if(compare == 0){
-			chunk_destroy(dic->val);
-			dic->val = chunk_copy(val);
-			return;
-		}
-		if(compare > 0){
-			if(dic->filsgauche == NULL){
-				dic->filsgauche = dictionary_create();
-				dic->filsgauche->pere = dic;
-			}
-			dictionary_set(dic->filsgauche , key , val);
-		}
-		else if(compare < 0){
-			if(dic->filsdroit == NULL){
-				dic->filsdroit = dictionary_create();
-				dic->filsdroit->pere = dic;
-			}
-			dictionary_set(dic->filsdroit , key , val);
-		}
-	}
+  if(dic->key == NULL){
+    dic->key = sstring_copy(key);
+    dic->val = chunk_copy(val);
 
+    return;
+  }else{
+    int compare = sstring_compare(dic->key, key);
+    if(compare == 0){
+      chunk_destroy(dic->val);
+      dic->val = chunk_copy(val);
+
+      return;
+    }
+    if(compare > 0){
+      if(dic->filsgauche == NULL){
+	dic->filsgauche = dictionary_create();
+	dic->filsgauche->pere = dic;
+      }
+      dictionary_set(dic->filsgauche , key , val);
+    }
+    else if(compare < 0){
+      if(dic->filsdroit == NULL){
+	dic->filsdroit = dictionary_create();
+	dic->filsdroit->pere = dic;
+      }
+      dictionary_set(dic->filsdroit , key , val);
+    }
+  }
+  
 }
 
 
@@ -149,9 +151,13 @@ chunk dictionary_get_copy ( dictionary dic ,
 void dictionary_destroy ( dictionary dic )  {
 	if(dic != NULL){
 		dictionary_destroy(dic->filsgauche);
+		dic->filsgauche = NULL;
 		dictionary_destroy(dic->filsdroit);
+		dic->filsdroit = NULL;
 		sstring_destroy(dic->key);
+		dic->key = NULL;
 		chunk_destroy(dic->val);
+		dic->val = NULL;
 		free(dic);
 		dic = NULL;
 	}

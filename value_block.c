@@ -49,8 +49,10 @@ typedef struct {
  */
 basic_type value_block_print(chunk const toprint, va_list va){
 	FILE * f = va_arg ( va , FILE * ) ;
-  linked_list_chunk_print(basic_type_get_pointer(*(basic_type*) (toprint->state)), f);	
-  return basic_type_void; 
+	fprintf(f, "{\n");
+	linked_list_chunk_print(basic_type_get_pointer(*(basic_type*) (toprint->state)), f);	
+	fprintf(f, "}");
+	return basic_type_void; 
 }
 
 basic_type value_block_destroy(chunk const todestroy, va_list va){ 

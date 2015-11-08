@@ -30,7 +30,7 @@ typedef struct {
 
 static basic_type value_error_get_value ( chunk const ch ,
 					  va_list va ) {
-  return basic_type_long_long_int ( ( ( value_error_state ) ch ) -> error ) ; 
+  return basic_type_long_long_int ( ( ( value_error_state ) ch -> state) -> error ) ; 
 }
 
 

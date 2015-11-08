@@ -79,12 +79,12 @@ void linked_list_chunk_destroy ( linked_list_chunk llc )  {
 		buffILC->suivant = NULL;
 		free(buffILC);
 		buffILC = NULL;
-	}
-	free(llc);
+	}	
 	llc->first = NULL;
 	llc->last = NULL;
+	free(llc);
 	llc = NULL;
-
+	
 }
 
 
@@ -183,14 +183,29 @@ chunk linked_list_chunk_pop_front ( linked_list_chunk llc )  {
 	if(linked_list_chunk_is_empty(llc)){
 		return NULL;
 	}
-	chunk ch = llc->first->value;
+	chunk ch = chunk_copy(llc->first->value);
+	inner_linked_chunk* buffILC;
+	buffILC = llc->first;
 	if(llc->first == llc->last){
 		llc->last = NULL;
 		llc->first = NULL;
-	}
-	else{
+		
+		buffILC->precedent = NULL;
+		chunk_destroy(buffILC->value);
+		buffILC->value = NULL;
+		buffILC->suivant = NULL;
+		free(buffILC);
+		buffILC = NULL;
+	}else{
 		llc->first = llc->first->suivant;
 		llc->first->precedent =  NULL;
+
+		chunk_destroy(buffILC->value);
+		buffILC->value = NULL;
+		buffILC->suivant = NULL;
+		free(buffILC);
+		buffILC = NULL;
+
 	}
 	return ch; 
 }
