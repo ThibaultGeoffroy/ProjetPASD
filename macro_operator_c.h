@@ -35,8 +35,10 @@
 									\
 static basic_type operator_ ## op_name ## _destroy ( chunk const ch ,	\
 						       va_list va ) {	\
-  free(ch);								\
-    return basic_type_void ;						\
+  if(ch != NULL){ \
+    free(ch); \
+  }								\
+  return basic_type_void ;						\
   }									\
 									\
 static basic_type operator_ ## op_name ## _copy ( chunk const ch ,	\

@@ -113,9 +113,9 @@ endef
 ## To 1) run 2) compare with expected 3) same with trace 4) test memorey leaks
 define TEST_F_TRACE
 	$(1) > $(RESULTS_DIR)/$(2).output
-	@if ! diff -Z $(RESULTS_DIR)/$(2).output $(RESULTS_EXPECTED_DIR)/$(2).output ; then echo "$(1): *** RÉSUTALT INCORRECT ***" ; false ; else echo "$(1): outputs match -- OK" ; fi
+	@if ! diff  $(RESULTS_DIR)/$(2).output $(RESULTS_EXPECTED_DIR)/$(2).output ; then echo "$(1): *** RÉSUTALT INCORRECT ***" ; false ; else echo "$(1): outputs match -- OK" ; fi
 	$(1) -t > $(RESULTS_DIR)/$(2).traced_output
-	@if ! diff -Z $(RESULTS_DIR)/$(2).traced_output $(RESULTS_EXPECTED_DIR)/$(2).traced_output ; then echo "$(1): *** TRACE INCORRECT ***" ; false ; else echo "$(1): traced outputs match -- OK" ; fi
+	@if ! diff  $(RESULTS_DIR)/$(2).traced_output $(RESULTS_EXPECTED_DIR)/$(2).traced_output ; then echo "$(1): *** TRACE INCORRECT ***" ; false ; else echo "$(1): traced outputs match -- OK" ; fi
 	@if ( ( ! ( 2>&1 $(VALGRIND) $(1) | tee $(RESULTS_DIR)/$(2).valgrind_output | grep $(VALGRIND_NO_MEMORY_LEAK_MESSAGE) ) ) || ( grep $(VALGRIND_INVALID_READ) $(RESULTS_DIR)/$(2).valgrind_output  ) ) ; then cat $(RESULTS_DIR)/$(2).valgrind_output ; fi
 endef
 
