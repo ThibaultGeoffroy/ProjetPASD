@@ -1,14 +1,29 @@
-==23466== Memcheck, a memory error detector
-==23466== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==23466== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
-==23466== Command: ./test_sstring
-==23466== 
-==23466== 
-==23466== HEAP SUMMARY:
-==23466==     in use at exit: 0 bytes in 0 blocks
-==23466==   total heap usage: 105 allocs, 105 frees, 1,352 bytes allocated
-==23466== 
-==23466== All heap blocks were freed -- no leaks are possible
-==23466== 
-==23466== For counts of detected and suppressed errors, rerun with: -v
-==23466== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==41954== Memcheck, a memory error detector
+==41954== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==41954== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==41954== Command: ./test_sstring
+==41954== 
+==41954== 
+==41954== HEAP SUMMARY:
+==41954==     in use at exit: 87,804 bytes in 190 blocks
+==41954==   total heap usage: 373 allocs, 183 frees, 95,212 bytes allocated
+==41954== 
+==41954== 65,536 bytes in 1 blocks are still reachable in loss record 63 of 63
+==41954==    at 0x100023EBB: malloc (in /usr/local/Cellar/valgrind/3.11.0/lib/valgrind/vgpreload_memcheck-amd64-darwin.so)
+==41954==    by 0x1001FD789: __smakebuf (in /usr/lib/system/libsystem_c.dylib)
+==41954==    by 0x1002127DD: __swsetup (in /usr/lib/system/libsystem_c.dylib)
+==41954==    by 0x1001FC9E5: __sfvwrite (in /usr/lib/system/libsystem_c.dylib)
+==41954==    by 0x10020115C: puts (in /usr/lib/system/libsystem_c.dylib)
+==41954==    by 0x1000100D5: test_sstring_println_st_ss (test_sstring.c:49)
+==41954==    by 0x10000FD20: test_sstring (test_sstring.c:115)
+==41954==    by 0x10000FBB1: main (test_sstring.c:158)
+==41954== 
+==41954== LEAK SUMMARY:
+==41954==    definitely lost: 0 bytes in 0 blocks
+==41954==    indirectly lost: 0 bytes in 0 blocks
+==41954==      possibly lost: 0 bytes in 0 blocks
+==41954==    still reachable: 65,536 bytes in 1 blocks
+==41954==         suppressed: 22,268 bytes in 189 blocks
+==41954== 
+==41954== For counts of detected and suppressed errors, rerun with: -v
+==41954== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 25 from 25)

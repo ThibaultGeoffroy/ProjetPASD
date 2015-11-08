@@ -42,15 +42,31 @@ void interprete_chunk ( chunk ch, interpretation_context ic ){
 
 
   if( chunk_is_operator(ch) ){
-
-    chunk_answer_message(ch, "operator_evaluate", ic);
-    if(ic->do_trace){
-      printf("==**== reading: ");
-      chunk_print(ch, stdout);
-      printf(" (operator)\n"); 
-      printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
-      linked_list_chunk_print( ic->stack , stdout);
-      printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
+    if(operator_is_print(ch) || operator_is_print_stack(ch) || operator_is_print_dictionary(ch)){
+      if(ic->do_trace){
+        printf("==**== reading: ");
+        chunk_print(ch, stdout);
+        printf(" (operator)\n");
+        chunk_answer_message(ch, "operator_evaluate", ic); 
+        printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+        linked_list_chunk_print( ic->stack , stdout);
+        printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
+      }
+      else{
+        chunk_answer_message(ch, "operator_evaluate", ic);
+      }
+      
+    }
+    else{
+      chunk_answer_message(ch, "operator_evaluate", ic);
+      if(ic->do_trace){
+        printf("==**== reading: ");
+        chunk_print(ch, stdout);
+        printf(" (operator)\n"); 
+        printf("vvvvvvvv stack  top  vvvvvvvvvv\n");
+        linked_list_chunk_print( ic->stack , stdout);
+        printf("^^^^^^^^ stack bottom ^^^^^^^^^\n");
+      }
     }
     return;
     }  

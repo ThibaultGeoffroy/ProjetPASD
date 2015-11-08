@@ -1,14 +1,19 @@
-==23502== Memcheck, a memory error detector
-==23502== Copyright (C) 2002-2013, and GNU GPL'd, by Julian Seward et al.
-==23502== Using Valgrind-3.10.0.SVN and LibVEX; rerun with -h for copyright info
-==23502== Command: ./test_value_int
-==23502== 
-==23502== 
-==23502== HEAP SUMMARY:
-==23502==     in use at exit: 0 bytes in 0 blocks
-==23502==   total heap usage: 10 allocs, 10 frees, 216 bytes allocated
-==23502== 
-==23502== All heap blocks were freed -- no leaks are possible
-==23502== 
-==23502== For counts of detected and suppressed errors, rerun with: -v
-==23502== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==42002== Memcheck, a memory error detector
+==42002== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==42002== Using Valgrind-3.11.0 and LibVEX; rerun with -h for copyright info
+==42002== Command: ./test_value_int
+==42002== 
+==42002== 
+==42002== HEAP SUMMARY:
+==42002==     in use at exit: 87,804 bytes in 190 blocks
+==42002==   total heap usage: 278 allocs, 88 frees, 94,076 bytes allocated
+==42002== 
+==42002== LEAK SUMMARY:
+==42002==    definitely lost: 0 bytes in 0 blocks
+==42002==    indirectly lost: 0 bytes in 0 blocks
+==42002==      possibly lost: 0 bytes in 0 blocks
+==42002==    still reachable: 0 bytes in 0 blocks
+==42002==         suppressed: 87,804 bytes in 190 blocks
+==42002== 
+==42002== For counts of detected and suppressed errors, rerun with: -v
+==42002== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 25 from 25)
