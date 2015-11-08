@@ -30,6 +30,7 @@
  */
 
 
-OPERATOR_DECLARE ( and ) 
+OPERATOR_BOOLEAN ( and , &&) 
+OPERATOR_BASIC_FULL ( and , "&&")
 
 

@@ -30,8 +30,25 @@
  * \date 2015
  * \copyright GNU Public License.
  */
+ static basic_type operator_def_evaluate ( chunk const ch , va_list va ) {
+	interpretation_context ic = va_arg( va , interpretation_context);
+    chunk ch1 = linked_list_chunk_pop_front(ic->stack);
+    chunk ch2 = linked_list_chunk_pop_front(ic-> stack);
+    if(!(ch1) || !(ch2)){
+    	return basic_type_error;
+    }
+    if(value_is_protected_label(ch1)){
+    	dictionary_set(ic->dic , basic_type_get_pointer(chunk_answer_message(ch1 , "value_get_value")) , ch2);
+    	chunk_destroy(ch1);
+    	chunk_destroy(ch2);
+    	return basic_type_void;
+    }
+    chunk_destroy(ch1);
+    chunk_destroy(ch2);
+    return basic_type_error;
+} 
+OPERATOR_BASIC_FULL ( def , "def")
 
 
-OPERATOR_DECLARE ( def ) 
 
 

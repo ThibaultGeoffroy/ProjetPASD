@@ -25,7 +25,11 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-OPERATOR_DECLARE ( stop_trace ) 
+static basic_type operator_stop_trace_evaluate ( chunk const ch ,	va_list va ) {	
+   interpretation_context ic = va_arg( va , interpretation_context);
+   ic->do_trace = false;
+   return basic_type_void;
+}
+OPERATOR_BASIC_FULL(stop_trace , "stop_trace")
 
 

@@ -29,8 +29,19 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( pop ) 
+ static basic_type operator_pop_evaluate ( chunk const ch , va_list va ) {
+ 	interpretation_context ic = va_arg( va , interpretation_context); 
+    chunk ch1 = linked_list_chunk_pop_front(ic->stack);
+    if(!(ch1)){
+    	return basic_type_error;
+    }
+    if(ch1){
+    	chunk_destroy(ch1);
+    	return basic_type_void;
+    }
+    return basic_type_error;
+ }
+ 
+OPERATOR_BASIC_FULL(pop, "pop")
 
 

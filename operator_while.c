@@ -44,8 +44,9 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( while ) 
+static basic_type operator_while_evaluate ( chunk const ch ,va_list va ) {
+	return basic_type_error;
+}
+OPERATOR_BASIC_FULL(while , "while")
 
 

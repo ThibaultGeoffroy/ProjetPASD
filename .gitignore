@@ -2,3 +2,7 @@
 *.o
 
 *.output
+
+*.valgrind_output
+
+*.valgrind_output

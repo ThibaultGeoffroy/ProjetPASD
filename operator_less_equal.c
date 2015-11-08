@@ -32,7 +32,9 @@
  * \copyright GNU Public License.
  */
 
+OPERATOR_COMPARATOR(less_equal , <=)
+OPERATOR_BASIC_FULL(less_equal , "<=")
 
-OPERATOR_DECLARE ( less_equal ) 
+//OPERATOR_DECLARE ( less_equal ) 
 
 

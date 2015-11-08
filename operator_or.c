@@ -30,6 +30,7 @@
  */
 
 
-OPERATOR_DECLARE ( or ) 
+OPERATOR_BOOLEAN ( or , ||) 
+OPERATOR_BASIC_FULL ( or , "||")
 
 

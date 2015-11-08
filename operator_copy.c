@@ -37,8 +37,19 @@
  * \copyright GNU Public License.
  */
 
+static basic_type operator_copy_evaluate ( chunk const ch , va_list va ) {
+	interpretation_context ic = va_arg( va , interpretation_context);
+    chunk ch1 = linked_list_chunk_pop_front(ic->stack);
+    if(value_is_int(ch1)){
+    	linked_list_chunk_add_self_copy_front(ic->stack , basic_type_get_long_long_int(chunk_answer_message(ch1, "value_get_value")));
+    	chunk_destroy(ch1);
+    	return basic_type_void;
+    }
+    chunk_destroy(ch1);
+    return basic_type_error;
+}
+OPERATOR_BASIC_FULL ( copy , "copy")
 
-OPERATOR_DECLARE ( copy ) 
 
 
 

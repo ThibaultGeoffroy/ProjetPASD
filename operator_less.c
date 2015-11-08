@@ -31,8 +31,7 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( less ) 
+OPERATOR_COMPARATOR(less , <)
+OPERATOR_BASIC_FULL(less , "<")
 
 

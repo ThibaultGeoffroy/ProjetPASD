@@ -34,9 +34,9 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( if_else ) 
-
+static basic_type operator_if_else_evaluate ( chunk const ch ,va_list va ) {
+	return basic_type_error;
+}
+OPERATOR_BASIC_FULL(if_else , "if_else")
 
 

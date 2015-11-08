@@ -32,7 +32,7 @@
  * \copyright GNU Public License.
  */
 
-
-OPERATOR_DECLARE ( remainder ) 
-
+//OPERATOR_NUMBER(remainder , %)
+//OPERATOR_BASIC_FULL(remainder , "%")
+OPERATOR_DECLARE(remainder)
 

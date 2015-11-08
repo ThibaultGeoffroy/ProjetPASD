@@ -25,7 +25,9 @@
  * \copyright GNU Public License.
  */
 
-
-OPERATOR_DECLARE ( nop ) 
+static basic_type operator_nop_evaluate ( chunk const ch , va_list va ) { 
+	return basic_type_void;
+}
+OPERATOR_BASIC_FULL(nop , "nop")
 
 

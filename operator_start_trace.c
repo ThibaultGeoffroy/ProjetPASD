@@ -24,6 +24,11 @@
  * \copyright GNU Public License.
  */
 
-OPERATOR_DECLARE ( start_trace ) 
+static basic_type operator_start_trace_evaluate ( chunk const ch ,	va_list va ) {	
+   interpretation_context ic = va_arg( va , interpretation_context);
+   ic->do_trace = true;
+   return basic_type_void;
+}
+OPERATOR_BASIC_FULL(start_trace , "start_trace")
 
 

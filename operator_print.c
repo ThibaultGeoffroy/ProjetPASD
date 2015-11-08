@@ -28,8 +28,20 @@
  * \date 2015
  * \copyright GNU Public License.
  */
+ static basic_type operator_print_evaluate ( chunk const ch ,va_list va ) {
+ 	interpretation_context ic = va_arg( va , interpretation_context); 
+    chunk ch1 = linked_list_chunk_pop_front(ic->stack); 
+    if(!(ch1)){
+    	return basic_type_error;
+    }
+    if(ch1 != NULL){
+    	chunk_print(ch1, stdout);
+    	chunk_destroy(ch1);
+    	return basic_type_void;
+    }
+    return basic_type_error;
 
-
-OPERATOR_DECLARE ( print ) 
+ }
+OPERATOR_BASIC_FULL(print , "print")
 
 

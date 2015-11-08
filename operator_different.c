@@ -31,8 +31,7 @@
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( different ) 
+ OPERATOR_EQUALITY(different , !=)		
+OPERATOR_BASIC_FULL(different , "!=")
 
 

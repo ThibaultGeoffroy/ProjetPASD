@@ -32,8 +32,11 @@ pop
  * \date 2015
  * \copyright GNU Public License.
  */
-
-
-OPERATOR_DECLARE ( print_dictionary ) 
+ static basic_type operator_print_dictionary_evaluate ( chunk const ch ,	va_list va ) {	
+   interpretation_context ic = va_arg( va , interpretation_context);
+   dictionary_print(ic->dic, stdout);
+   return basic_type_void;
+}
+OPERATOR_BASIC_FULL(print_dictionary , "print_dictionary")
 
 
