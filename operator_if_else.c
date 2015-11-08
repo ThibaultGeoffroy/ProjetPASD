@@ -2,10 +2,12 @@
 # include <stdio.h>
 # include <assert.h>
 
+# include "interpreter.h"
 # include "operator_if_else.h"
 # include "operator_label.h"
 # include "macro_operator_c.h"
 
+# include "value_protected_label.h"
 # include "value_boolean.h"
 # include "value_block.h"
 # include "value_error.h"
@@ -35,6 +37,51 @@
  * \copyright GNU Public License.
  */
 static basic_type operator_if_else_evaluate ( chunk const ch ,va_list va ) {
+	interpretation_context ic = va_arg( va , interpretation_context); 
+    chunk ch1 = linked_list_chunk_pop_front(ic->stack); 
+    chunk ch2 = linked_list_chunk_pop_front(ic->stack);
+    chunk ch3 = linked_list_chunk_pop_front(ic->stack);
+    if(ch1 == NULL || ch2 == NULL || ch3 == NULL){
+    	return basic_type_error;
+    }
+    if(value_is_boolean(ch1)){
+    	if(basic_type_get_boolean(value_get_value(ch1))){
+    		if(value_is_block(ch2)){
+    			interprete_chunk_list(basic_type_get_pointer(value_get_value(ch2)), ic);
+    		}
+    		else if(value_is_protected_label(ch2)){
+    			chunk_answer_message(ch2 , "operator_evaluate" , ic );
+    		}
+    		else{
+    			chunk_destroy(ch1);
+    			chunk_destroy(ch2);
+    			chunk_destroy(ch3);
+    			return basic_type_error;
+    		}
+    	}
+    	else{
+    		if(value_is_block(ch3)){
+    			interprete_chunk_list(basic_type_get_pointer(value_get_value(ch3)), ic);
+    		}
+    		else if(value_is_protected_label(ch3)){
+    			chunk_answer_message(ch3 , "operator_evaluate" , ic );
+    		}
+    		else{
+    			chunk_destroy(ch1);
+    			chunk_destroy(ch2);
+    			chunk_destroy(ch3);
+    			return basic_type_error;
+    		}
+    	}
+    	chunk_destroy(ch1);
+    	chunk_destroy(ch2);
+    	chunk_destroy(ch3);
+    	return basic_type_void;
+
+    }
+    chunk_destroy(ch1);
+    chunk_destroy(ch2);
+    chunk_destroy(ch3);
 	return basic_type_error;
 }
 OPERATOR_BASIC_FULL(if_else , "if_else")

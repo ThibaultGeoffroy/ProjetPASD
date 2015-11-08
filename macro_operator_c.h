@@ -41,8 +41,7 @@ static basic_type operator_ ## op_name ## _destroy ( chunk const ch ,	\
 									\
 static basic_type operator_ ## op_name ## _copy ( chunk const ch ,	\
 						  va_list va ) {	\
-    chunk ch2 = malloc(sizeof(struct chunk_struct));			\
-    /*ch2 = &(operator_ ## op_name ## _instance); */			\
+    chunk ch2 = operator_ ## op_name ## _create();			\
     return basic_type_pointer(ch2);					\
   }									\
 									\
